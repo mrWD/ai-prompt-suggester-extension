@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AI Prompt Suggester",
   "version": "1.0",
-  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat.",
+  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat, LM Arena.",
   "permissions": [
     "storage",
     "activeTab",
@@ -19,7 +19,8 @@
     "https://chat.mistral.ai/*",
     "https://chat.deepseek.com/*",
     "https://copilot.microsoft.com/*",
-    "https://chat.qwen.ai/*"
+    "https://chat.qwen.ai/*",
+    "https://lmarena.ai/*"
   ],
   "content_scripts": [
     {
@@ -34,7 +35,8 @@
         "https://chat.mistral.ai/*",
         "https://chat.deepseek.com/*",
         "https://copilot.microsoft.com/*",
-        "https://chat.qwen.ai/*"
+        "https://chat.qwen.ai/*",
+        "https://lmarena.ai/*"
       ],
       "js": ["content.js"]
     }
@@ -58,7 +60,8 @@
         "https://chat.mistral.ai/*",
         "https://chat.deepseek.com/*",
         "https://copilot.microsoft.com/*",
-        "https://chat.qwen.ai/*"
+        "https://chat.qwen.ai/*",
+        "https://lmarena.ai/*"
       ]
     }
   ]

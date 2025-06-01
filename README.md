@@ -1,6 +1,6 @@
 # AI Prompt Suggester Chrome Extension
 
-Chrome extension for suggesting and customizing prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, and Le Chat.
+Chrome extension for suggesting and customizing prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat, and LM Arena.
 
 ## Installation
 
@@ -15,7 +15,7 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
 
 ## Usage
 
-1. Open any supported chat (ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, or Le Chat)
+1. Open any supported chat (ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, LM Arena, or Le Chat)
 2. Look for the 💡 button:
    - On Gemini: The button appears after the last toolbox item
    - On Claude: The button appears in the input area toolbar
@@ -25,6 +25,7 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
    - On DeepSeek: The button appears after the last primary filled rectangle button in the input area
    - On Copilot: The button appears after the chat mode switcher's parent container
    - On Qwen: The button appears after the web search button
+   - On LM Arena: The button appears after the model selector button
    - On other platforms: The button appears next to the system hint button
 3. Click the button to open the prompt suggestions modal
 4. Select a prompt from the list
@@ -63,4 +64,5 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
 - DeepSeek (chat.deepseek.com)
 - Copilot (copilot.microsoft.com)
 - Qwen (chat.qwen.ai)
+- LM Arena (lmarena.ai)
 - Le Chat (chat.lmsys.org)

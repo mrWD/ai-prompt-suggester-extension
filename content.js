@@ -409,6 +409,46 @@ function createSuggestionButton() {
 
     // Insert button after the websearch button
     targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
+  } else if (url.includes('lmarena.ai')) {
+    // For LM Arena, find the button with the specified classes
+    const targetElement = document.querySelector('button.flex.items-center.justify-between.whitespace-nowrap.border.border-border.rounded-md.px-3.py-2.text-header-secondary.hover\\:text-header-primary.data-\\[state\\=open\\]\\:text-text-tertiary.transition-colors.text-sm.font-sans.font-medium.ring-offset-background.placeholder\\:text-muted-foreground.focus\\:outline-none.focus\\:ring-1.focus\\:ring-ring.disabled\\:cursor-not-allowed.disabled\\:opacity-50.\\[\\&\\>span\\]\\:line-clamp-1.group.w-auto.max-w-max.border-none.bg-transparent.pl-2.pr-1.h-8.shadow-none');
+    if (!targetElement) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the target element
+    targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.getElementById('system-hint-button');
@@ -679,6 +719,9 @@ function applyPromptToChat(prompt) {
   } else if (url.includes('chat.qwen.ai')) {
     // Qwen
     inputElement = document.querySelector('textarea#chat-input');
+  } else if (url.includes('lmarena.ai')) {
+    // LM Arena
+    inputElement = document.querySelector('textarea.flex-none.p-2.w-full.max-h-\\[40vh\\].bg-surface-secondary.active\\:outline-none.focus\\:outline-none.box-border.resize-none');
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.querySelector('#system-hint-button');
@@ -897,6 +940,26 @@ function initialize() {
 
     // Initial check
     const targetElement = document.querySelector('.websearch_button');
+    if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else if (url.includes('lmarena.ai')) {
+    // For LM Arena, watch for the target button
+    const observer = new MutationObserver((mutations) => {
+      const targetElement = document.querySelector('button.flex.items-center.justify-between.whitespace-nowrap.border.border-border.rounded-md.px-3.py-2.text-header-secondary.hover\\:text-header-primary.data-\\[state\\=open\\]\\:text-text-tertiary.transition-colors.text-sm.font-sans.font-medium.ring-offset-background.placeholder\\:text-muted-foreground.focus\\:outline-none.focus\\:ring-1.focus\\:ring-ring.disabled\\:cursor-not-allowed.disabled\\:opacity-50.\\[\\&\\>span\\]\\:line-clamp-1.group.w-auto.max-w-max.border-none.bg-transparent.pl-2.pr-1.h-8.shadow-none');
+      if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const targetElement = document.querySelector('button.flex.items-center.justify-between.whitespace-nowrap.border.border-border.rounded-md.px-3.py-2.text-header-secondary.hover\\:text-header-primary.data-\\[state\\=open\\]\\:text-text-tertiary.transition-colors.text-sm.font-sans.font-medium.ring-offset-background.placeholder\\:text-muted-foreground.focus\\:outline-none.focus\\:ring-1.focus\\:ring-ring.disabled\\:cursor-not-allowed.disabled\\:opacity-50.\\[\\&\\>span\\]\\:line-clamp-1.group.w-auto.max-w-max.border-none.bg-transparent.pl-2.pr-1.h-8.shadow-none');
     if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
       createSuggestionButton();
     }

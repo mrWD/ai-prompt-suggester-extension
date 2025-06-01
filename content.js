@@ -328,6 +328,47 @@ function createSuggestionButton() {
 
     // Insert button after the last matching button
     targetButton.parentElement.insertBefore(button, targetButton.nextSibling);
+  } else if (url.includes('copilot.microsoft.com')) {
+    // For Copilot, find the chat mode switcher and its parent's parent
+    const chatModeSwitcher = document.querySelector('[data-testid="chat-mode-switcher"]');
+    if (!chatModeSwitcher) return;
+    const targetElement = chatModeSwitcher.parentElement.parentElement;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the target element
+    targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.getElementById('system-hint-button');
@@ -592,6 +633,9 @@ function applyPromptToChat(prompt) {
   } else if (url.includes('chat.deepseek.com')) {
     // DeepSeek
     inputElement = document.querySelector('textarea#chat-input');
+  } else if (url.includes('copilot.microsoft.com')) {
+    // Copilot
+    inputElement = document.querySelector('textarea#userInput');
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.querySelector('#system-hint-button');
@@ -764,6 +808,32 @@ function initialize() {
     if (buttons.length) {
       const targetButton = buttons[buttons.length - 1];
       if (targetButton && !targetButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    }
+  } else if (url.includes('copilot.microsoft.com')) {
+    // For Copilot, watch for the chat mode switcher
+    const observer = new MutationObserver((mutations) => {
+      const chatModeSwitcher = document.querySelector('[data-testid="chat-mode-switcher"]');
+      if (chatModeSwitcher) {
+        const targetElement = chatModeSwitcher.parentElement.parentElement;
+        if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+          createSuggestionButton();
+        }
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const chatModeSwitcher = document.querySelector('[data-testid="chat-mode-switcher"]');
+    if (chatModeSwitcher) {
+      const targetElement = chatModeSwitcher.parentElement.parentElement;
+      if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
         createSuggestionButton();
       }
     }

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AI Prompt Suggester",
   "version": "1.0",
-  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Le Chat.",
+  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Le Chat.",
   "permissions": [
     "storage",
     "activeTab",
@@ -17,7 +17,8 @@
     "https://www.perplexity.ai/*",
     "https://grok.com/*",
     "https://chat.mistral.ai/*",
-    "https://chat.deepseek.com/*"
+    "https://chat.deepseek.com/*",
+    "https://copilot.microsoft.com/*"
   ],
   "content_scripts": [
     {
@@ -30,7 +31,8 @@
         "https://www.perplexity.ai/*",
         "https://grok.com/*",
         "https://chat.mistral.ai/*",
-        "https://chat.deepseek.com/*"
+        "https://chat.deepseek.com/*",
+        "https://copilot.microsoft.com/*"
       ],
       "js": ["content.js"]
     }
@@ -52,7 +54,8 @@
         "https://www.perplexity.ai/*",
         "https://grok.com/*",
         "https://chat.mistral.ai/*",
-        "https://chat.deepseek.com/*"
+        "https://chat.deepseek.com/*",
+        "https://copilot.microsoft.com/*"
       ]
     }
   ]

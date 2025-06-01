@@ -369,6 +369,46 @@ function createSuggestionButton() {
 
     // Insert button after the target element
     targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
+  } else if (url.includes('chat.qwen.ai')) {
+    // For Qwen, find the websearch button
+    const targetElement = document.querySelector('.websearch_button');
+    if (!targetElement) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the websearch button
+    targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.getElementById('system-hint-button');
@@ -636,6 +676,9 @@ function applyPromptToChat(prompt) {
   } else if (url.includes('copilot.microsoft.com')) {
     // Copilot
     inputElement = document.querySelector('textarea#userInput');
+  } else if (url.includes('chat.qwen.ai')) {
+    // Qwen
+    inputElement = document.querySelector('textarea#chat-input');
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.querySelector('#system-hint-button');
@@ -836,6 +879,26 @@ function initialize() {
       if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
         createSuggestionButton();
       }
+    }
+  } else if (url.includes('chat.qwen.ai')) {
+    // For Qwen, watch for the websearch button
+    const observer = new MutationObserver((mutations) => {
+      const targetElement = document.querySelector('.websearch_button');
+      if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const targetElement = document.querySelector('.websearch_button');
+    if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
     }
   } else {
     // For other platforms, use the existing logic

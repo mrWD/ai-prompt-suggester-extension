@@ -287,6 +287,47 @@ function createSuggestionButton() {
 
     // Insert button after the library selection button
     targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
+  } else if (url.includes('chat.deepseek.com')) {
+    // For DeepSeek, find the last matching button
+    const buttons = document.querySelectorAll('.ds-button.ds-button--primary.ds-button--filled.ds-button--rect');
+    if (!buttons.length) return;
+    const targetButton = buttons[buttons.length - 1];
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the last matching button
+    targetButton.parentElement.insertBefore(button, targetButton.nextSibling);
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.getElementById('system-hint-button');
@@ -548,6 +589,9 @@ function applyPromptToChat(prompt) {
     inputElement = document.querySelector('.border-default.ring-offset-background.flex.w-full.rounded-md.px-3.py-2.disabled\\:cursor-not-allowed.disabled\\:opacity-50.transition-all.duration-200.focus-visible\\:ring-none.firefox\\:min-h-16.sm\\:firefox\\:min-h-0.relative.m-0.box-border.h-10.min-h-0.resize-none.border-0.bg-transparent.pl-2.text-base.placeholder\\:text-placeholder.focus-visible\\:ring-0.focus-visible\\:ring-offset-0.focus-visible\\:outline-hidden.focus-visible\\:outline-0.sm\\:text-base') ||
                   document.querySelector('textarea[placeholder*="Message"]') ||
                   document.querySelector('[contenteditable="true"]');
+  } else if (url.includes('chat.deepseek.com')) {
+    // DeepSeek
+    inputElement = document.querySelector('textarea#chat-input');
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.querySelector('#system-hint-button');
@@ -699,6 +743,29 @@ function initialize() {
     const targetElement = document.querySelector('[data-testid="library-selection-button"]');
     if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
       createSuggestionButton();
+    }
+  } else if (url.includes('chat.deepseek.com')) {
+    // For DeepSeek, watch for the last matching button
+    const observer = new MutationObserver((mutations) => {
+      const buttons = document.querySelectorAll('.ds-button.ds-button--primary.ds-button--filled.ds-button--rect');
+      if (buttons.length) {
+        const targetButton = buttons[buttons.length - 1];
+        if (targetButton && !targetButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+          createSuggestionButton();
+        }
+      }
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    // Initial check
+    const buttons = document.querySelectorAll('.ds-button.ds-button--primary.ds-button--filled.ds-button--rect');
+    if (buttons.length) {
+      const targetButton = buttons[buttons.length - 1];
+      if (targetButton && !targetButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
     }
   } else {
     // For other platforms, use the existing logic

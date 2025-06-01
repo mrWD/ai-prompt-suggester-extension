@@ -1,6 +1,3 @@
-// popup.js
-// В будущем здесь будет логика отображения и выбора промптов
-
 let currentPrompts = [];
 let selectedPrompt = null;
 

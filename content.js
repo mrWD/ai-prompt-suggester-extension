@@ -1,6 +1,3 @@
-// content.js
-// В будущем здесь будет логика внедрения UI и взаимодействия с чатом
-
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'applyPrompt') {

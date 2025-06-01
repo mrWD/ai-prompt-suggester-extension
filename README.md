@@ -1,6 +1,6 @@
 # AI Prompt Suggester Chrome Extension
 
-Chrome extension for suggesting and customizing prompts for ChatGPT, Gemini, Claude, and Le Chat.
+Chrome extension for suggesting and customizing prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, and Le Chat.
 
 ## Installation
 
@@ -15,8 +15,14 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
 
 ## Usage
 
-1. Open any supported chat (ChatGPT, Gemini, Claude, or Le Chat)
-2. Look for the 💡 button next to the system hint button
+1. Open any supported chat (ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, or Le Chat)
+2. Look for the 💡 button:
+   - On Gemini: The button appears after the last toolbox item
+   - On Claude: The button appears in the input area toolbar
+   - On Perplexity: The button appears in the input toolbar
+   - On Grok: The button appears after the "Think" button
+   - On Mistral: The button appears in the input toolbar
+   - On other platforms: The button appears next to the system hint button
 3. Click the button to open the prompt suggestions modal
 4. Select a prompt from the list
 5. Fill in the required fields:
@@ -33,6 +39,7 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
 - Keyboard navigation between fields
 - Automatic focus on first input
 - Support for multiple AI chat platforms
+- Dynamic UI adaptation for different chat interfaces
 
 ## Project Structure
 - `manifest.json` — Chrome extension manifest
@@ -47,8 +54,7 @@ git clone https://github.com/mrWD/ai-prompt-suggester-extension.git
 - ChatGPT (chat.openai.com)
 - Gemini (gemini.google.com)
 - Claude (claude.ai)
+- Perplexity (perplexity.ai)
+- Grok (grok.com)
+- Mistral (chat.mistral.ai)
 - Le Chat (chat.lmsys.org)
-
-## TODO
-- Реализация UI для выбора и кастомизации промптов
-- Интеграция с разными чатами

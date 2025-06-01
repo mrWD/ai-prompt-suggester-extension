@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AI Prompt Suggester",
   "version": "1.0",
-  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Le Chat.",
+  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Le Chat.",
   "permissions": [
     "storage",
     "activeTab",
@@ -13,7 +13,8 @@
     "https://gemini.google.com/*",
     "https://claude.ai/*",
     "https://chat.lmsys.org/*",
-    "https://chatgpt.com/*"
+    "https://chatgpt.com/*",
+    "https://www.perplexity.ai/*"
   ],
   "content_scripts": [
     {
@@ -22,7 +23,8 @@
         "https://gemini.google.com/*",
         "https://claude.ai/*",
         "https://chat.lmsys.org/*",
-        "https://chatgpt.com/*"
+        "https://chatgpt.com/*",
+        "https://www.perplexity.ai/*"
       ],
       "js": ["content.js"]
     }
@@ -40,7 +42,8 @@
         "https://gemini.google.com/*",
         "https://claude.ai/*",
         "https://chat.lmsys.org/*",
-        "https://chatgpt.com/*"
+        "https://chatgpt.com/*",
+        "https://www.perplexity.ai/*"
       ]
     }
   ]

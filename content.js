@@ -101,51 +101,6 @@ function createSuggestionButton() {
     position: relative;
   `;
 
-  // // Add tooltip container
-  // const tooltip = document.createElement('div');
-  // tooltip.style.cssText = `
-  //   position: absolute;
-  //   bottom: 100%;
-  //   left: 50%;
-  //   transform: translateX(-50%);
-  //   background: #2d2d2d;
-  //   color: white;
-  //   padding: 8px 12px;
-  //   border-radius: 4px;
-  //   font-size: 14px;
-  //   max-width: 300px;
-  //   white-space: normal;
-  //   display: none;
-  //   z-index: 1000;
-  //   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  // `;
-  // button.appendChild(tooltip);
-
-  // // Add hover effects
-  // button.addEventListener('mouseover', async () => {
-  //   try {
-  //     button.style.opacity = '0.8';
-  //     // Load prompts and show example in tooltip
-  //     const prompts = await loadPrompts();
-  //     if (prompts && prompts.length > 0) {
-  //       tooltip.textContent = prompts[0].prompt_example;
-  //       tooltip.style.display = 'block';
-  //     } else {
-  //       tooltip.textContent = 'No prompts available';
-  //       tooltip.style.display = 'block';
-  //     }
-  //   } catch (error) {
-  //     console.error('Error showing tooltip:', error);
-  //     tooltip.textContent = 'Error loading prompts';
-  //     tooltip.style.display = 'block';
-  //   }
-  // });
-
-  // button.addEventListener('mouseout', () => {
-  //   button.style.opacity = '1';
-  //   tooltip.style.display = 'none';
-  // });
-
   button.addEventListener('click', () => {
     showModal();
   });
@@ -198,12 +153,6 @@ function displayPrompts(prompts) {
       cursor: pointer;
       transition: background-color 0.2s;
     `;
-    promptElement.addEventListener('mouseover', () => {
-      promptElement.style.backgroundColor = '#f5f5f5';
-    });
-    promptElement.addEventListener('mouseout', () => {
-      promptElement.style.backgroundColor = 'white';
-    });
 
     const categoryElement = document.createElement('div');
     categoryElement.style.cssText = `
@@ -217,17 +166,143 @@ function displayPrompts(prompts) {
     textElement.style.cssText = `
       font-size: 14px;
       color: #333;
+      margin-bottom: 8px;
     `;
     textElement.textContent = prompt.prompt_text || prompt.prompt_template;
 
-    promptElement.appendChild(categoryElement);
-    promptElement.appendChild(textElement);
+    // Create input fields container
+    const inputContainer = document.createElement('div');
+    inputContainer.style.cssText = `
+      display: none;
+      margin-top: 8px;
+    `;
 
+    // Get the number of placeholders
+    const promptText = prompt.prompt_text || prompt.prompt_template;
+    const placeholderCount = (promptText.match(/\{(\d+)\}/g) || []).length;
+
+    // Create input fields
+    const inputs = [];
+    for (let i = 1; i <= placeholderCount; i++) {
+      const inputWrapper = document.createElement('div');
+      inputWrapper.style.cssText = `
+        margin-bottom: 8px;
+      `;
+
+      const label = document.createElement('label');
+      label.style.cssText = `
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+      `;
+      label.textContent = `Input ${i}`;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.style.cssText = `
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      `;
+
+      // Add input event listener for live preview
+      input.addEventListener('input', () => {
+        let previewText = promptText;
+        inputs.forEach((input, index) => {
+          previewText = previewText.replace(`{${index + 1}}`, input.value || `{${index + 1}}`);
+        });
+        textElement.textContent = previewText;
+      });
+
+      // Prevent click event from bubbling up to promptElement
+      input.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      inputWrapper.appendChild(label);
+      inputWrapper.appendChild(input);
+      inputContainer.appendChild(inputWrapper);
+      inputs.push(input);
+    }
+
+    // Create apply button
+    const applyButton = document.createElement('button');
+    applyButton.textContent = 'Apply';
+    applyButton.style.cssText = `
+      display: none;
+      width: 100%;
+      padding: 8px;
+      background-color: #007AFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 8px;
+    `;
+
+    // Add click handler for the prompt
     promptElement.addEventListener('click', () => {
-      applyPromptToChat(prompt.prompt_text || prompt.prompt_template);
+      // Toggle input fields and apply button
+      const isVisible = inputContainer.style.display === 'block';
+      inputContainer.style.display = isVisible ? 'none' : 'block';
+      applyButton.style.display = isVisible ? 'none' : 'block';
+
+      // Reset input values when hiding
+      if (isVisible) {
+        inputs.forEach(input => input.value = '');
+        textElement.textContent = promptText;
+      } else {
+        // Focus the first input when showing
+        setTimeout(() => inputs[0].focus(), 0);
+      }
+    });
+
+    // Add keyboard navigation between inputs
+    inputs.forEach((input, index) => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (index > 0) {
+            inputs[index - 1].focus();
+          }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          } else {
+            applyButton.focus();
+          }
+        }
+      });
+    });
+
+    // Add apply button click handler
+    applyButton.addEventListener('click', () => {
+      let finalPrompt = promptText;
+      inputs.forEach((input, index) => {
+        finalPrompt = finalPrompt.replace(`{${index + 1}}`, input.value);
+      });
+      applyPromptToChat(finalPrompt);
       closeModal();
     });
 
+    // Add enter key handler for inputs
+    inputs.forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyButton.click();
+        }
+      });
+    });
+
+    promptElement.appendChild(categoryElement);
+    promptElement.appendChild(textElement);
+    promptElement.appendChild(inputContainer);
+    promptElement.appendChild(applyButton);
     promptList.appendChild(promptElement);
   });
 }

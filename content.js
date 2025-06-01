@@ -31,13 +31,76 @@ function createModal() {
         margin-bottom: 16px;
       ">
         <h2 style="margin: 0;">Prompt Suggestions</h2>
-        <button id="close-modal" style="
-          background: none;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-          padding: 4px 8px;
-        ">×</button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button id="support-button" style="
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          ">❤️ Support</button>
+          <button id="close-modal" style="
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+          ">×</button>
+        </div>
+      </div>
+      <div id="support-links" style="
+        display: none;
+        background: #f5f5f5;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+      ">
+        <h3 style="margin: 0 0 12px 0; font-size: 16px;">Support the Project</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="https://buymeacoffee.com/ipupok" target="_blank" style="
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: white;
+            transition: background-color 0.2s;
+          ">
+            <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" style="width: 24px; height: 24px; margin-right: 12px;">
+            <span style="font-size: 14px;">Buy Me a Coffee</span>
+          </a>
+          <a href="https://ko-fi.com/ipupok" target="_blank" style="
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: white;
+            transition: background-color 0.2s;
+          ">
+            <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi" style="width: 24px; height: 24px; margin-right: 12px;">
+            <span style="font-size: 14px;">Support on Ko-fi</span>
+          </a>
+          <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" style="
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: white;
+            transition: background-color 0.2s;
+          ">
+            <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="width: 24px; height: 24px; margin-right: 12px;">
+            <span style="font-size: 14px;">Donate with PayPal</span>
+          </a>
+        </div>
       </div>
       <div class="language-selector" style="margin-bottom: 16px;">
         <select id="modal-language" style="
@@ -78,6 +141,16 @@ function createModal() {
   document.getElementById('modal-language').addEventListener('change', async (e) => {
     const prompts = await loadPrompts(e.target.value);
     displayPrompts(prompts);
+  });
+
+  // Add support button functionality
+  const supportButton = document.getElementById('support-button');
+  const supportLinks = document.getElementById('support-links');
+
+  supportButton.addEventListener('click', () => {
+    const isVisible = supportLinks.style.display === 'block';
+    supportLinks.style.display = isVisible ? 'none' : 'block';
+    supportButton.style.color = isVisible ? '#666' : '#007AFF';
   });
 }
 

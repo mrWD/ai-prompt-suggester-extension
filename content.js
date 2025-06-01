@@ -127,6 +127,166 @@ function createSuggestionButton() {
 
     // Insert button after the last toolbox item
     lastToolboxItem.parentElement.insertBefore(button, lastToolboxItem.nextSibling);
+  } else if (url.includes('claude.ai')) {
+    // For Claude, find the element with the specified class
+    const targetElement = document.querySelector('.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0');
+    if (!targetElement) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the target element
+    targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
+  } else if (url.includes('perplexity.ai')) {
+    // For Perplexity, find the element with the specified class
+    const targetElement = document.querySelector('.bg-background.dark\\:bg-offsetDark.flex.items-center.justify-self-end.rounded-full.col-start-3.row-start-2.-mr-1');
+    if (!targetElement) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-right: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button as the first child of the target element
+    targetElement.insertBefore(button, targetElement.firstChild);
+  } else if (url.includes('grok.com')) {
+    // For Grok, find the button with text "Think"
+    const thinkButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.trim() === 'Think');
+    if (!thinkButton) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the Think button
+    thinkButton.parentElement.insertBefore(button, thinkButton.nextSibling);
+  } else if (url.includes('chat.mistral.ai')) {
+    // For Mistral, find the library selection button
+    const targetElement = document.querySelector('[data-testid="library-selection-button"]');
+    if (!targetElement) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-right: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+      color: #666;
+    `;
+
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the library selection button
+    targetElement.parentElement.insertBefore(button, targetElement.nextSibling);
   } else {
     // For other platforms, use the existing logic
     const hintButton = document.getElementById('system-hint-button');
@@ -383,6 +543,35 @@ function applyPromptToChat(prompt) {
     // ChatGPT.com
     inputElement = document.querySelector('textarea[placeholder*="Message"]') ||
                   document.querySelector('[contenteditable="true"]');
+  } else if (url.includes('chat.mistral.ai')) {
+    // Mistral
+    inputElement = document.querySelector('.border-default.ring-offset-background.flex.w-full.rounded-md.px-3.py-2.disabled\\:cursor-not-allowed.disabled\\:opacity-50.transition-all.duration-200.focus-visible\\:ring-none.firefox\\:min-h-16.sm\\:firefox\\:min-h-0.relative.m-0.box-border.h-10.min-h-0.resize-none.border-0.bg-transparent.pl-2.text-base.placeholder\\:text-placeholder.focus-visible\\:ring-0.focus-visible\\:ring-offset-0.focus-visible\\:outline-hidden.focus-visible\\:outline-0.sm\\:text-base') ||
+                  document.querySelector('textarea[placeholder*="Message"]') ||
+                  document.querySelector('[contenteditable="true"]');
+  } else {
+    // For other platforms, use the existing logic
+    const hintButton = document.querySelector('#system-hint-button');
+    if (!hintButton) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+    `;
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the parent element of the hint button
+    hintButton.parentElement.parentElement.insertBefore(button, hintButton.parentElement.nextSibling);
   }
 
   if (inputElement) {
@@ -429,6 +618,86 @@ function initialize() {
     // Initial check
     const lastToolboxItem = document.querySelector('toolbox-drawer-item:last-child');
     if (lastToolboxItem && !lastToolboxItem.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else if (url.includes('claude.ai')) {
+    // For Claude, watch for the target element
+    const observer = new MutationObserver((mutations) => {
+      const targetElement = document.querySelector('.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0');
+      if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const targetElement = document.querySelector('.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0');
+    if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else if (url.includes('perplexity.ai')) {
+    // For Perplexity, watch for the target element
+    const observer = new MutationObserver((mutations) => {
+      const targetElement = document.querySelector('.bg-background.dark\\:bg-offsetDark.flex.items-center.justify-self-end.rounded-full.col-start-3.row-start-2.-mr-1');
+      if (targetElement && !targetElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const targetElement = document.querySelector('.bg-background.dark\\:bg-offsetDark.flex.items-center.justify-self-end.rounded-full.col-start-3.row-start-2.-mr-1');
+    if (targetElement && !targetElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else if (url.includes('grok.com')) {
+    // For Grok, watch for the Think button
+    const observer = new MutationObserver((mutations) => {
+      const thinkButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.trim() === 'Think');
+      if (thinkButton && !thinkButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const thinkButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.trim() === 'Think');
+    if (thinkButton && !thinkButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else if (url.includes('chat.mistral.ai')) {
+    // For Mistral, watch for the library selection button
+    const observer = new MutationObserver((mutations) => {
+      const targetElement = document.querySelector('[data-testid="library-selection-button"]');
+      if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const targetElement = document.querySelector('[data-testid="library-selection-button"]');
+    if (targetElement && !targetElement.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
       createSuggestionButton();
     }
   } else {

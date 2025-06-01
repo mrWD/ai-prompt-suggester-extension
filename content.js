@@ -86,27 +86,72 @@ function createModal() {
 
 // Create and inject the suggestion button
 function createSuggestionButton() {
-  const hintButton = document.getElementById('system-hint-button');
-  if (!hintButton) return;
+  const url = window.location.href;
 
-  const button = document.createElement('button');
-  button.innerHTML = '💡';
-  button.style.cssText = `
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 4px 8px;
-    margin-left: 8px;
-    position: relative;
-  `;
+  if (url.includes('gemini.google.com')) {
+    // For Gemini, find the last toolbox-drawer-item
+    const lastToolboxItem = document.querySelector('toolbox-drawer-item:last-child');
+    if (!lastToolboxItem) return;
 
-  button.addEventListener('click', () => {
-    showModal();
-  });
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    `;
 
-  // Insert button after the parent element of the hint button
-  hintButton.parentElement.parentElement.insertBefore(button, hintButton.parentElement.nextSibling);
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+    });
+
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the last toolbox item
+    lastToolboxItem.parentElement.insertBefore(button, lastToolboxItem.nextSibling);
+  } else {
+    // For other platforms, use the existing logic
+    const hintButton = document.getElementById('system-hint-button');
+    if (!hintButton) return;
+
+    const button = document.createElement('button');
+    button.innerHTML = '💡';
+    button.title = 'Get Prompt Suggestions';
+    button.style.cssText = `
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px 8px;
+      margin-left: 8px;
+      position: relative;
+    `;
+
+    button.addEventListener('click', () => {
+      showModal();
+    });
+
+    // Insert button after the parent element of the hint button
+    hintButton.parentElement.parentElement.insertBefore(button, hintButton.parentElement.nextSibling);
+  }
 }
 
 // Show the modal
@@ -364,30 +409,54 @@ function applyPromptToChat(prompt) {
 function initialize() {
   createModal();
 
-  // Create a MutationObserver to watch for the hint button
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        if (node.nodeType === 1) { // Element node
-          const hintButton = node.querySelector('#system-hint-button');
-          if (hintButton && !hintButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
-            createSuggestionButton();
+  const url = window.location.href;
+
+  if (url.includes('gemini.google.com')) {
+    // For Gemini, watch for toolbox-drawer-item elements
+    const observer = new MutationObserver((mutations) => {
+      const lastToolboxItem = document.querySelector('toolbox-drawer-item:last-child');
+      if (lastToolboxItem && !lastToolboxItem.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+        createSuggestionButton();
+      }
+    });
+
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Initial check
+    const lastToolboxItem = document.querySelector('toolbox-drawer-item:last-child');
+    if (lastToolboxItem && !lastToolboxItem.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
+  } else {
+    // For other platforms, use the existing logic
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // Element node
+            const hintButton = node.querySelector('#system-hint-button');
+            if (hintButton && !hintButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+              createSuggestionButton();
+            }
           }
-        }
+        });
       });
     });
-  });
 
-  // Start observing the document body for changes
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
+    // Start observing the document body for changes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
 
-  // Check for existing hint button
-  const hintButton = document.querySelector('#system-hint-button');
-  if (hintButton && !hintButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
-    createSuggestionButton();
+    // Check for existing hint button
+    const hintButton = document.querySelector('#system-hint-button');
+    if (hintButton && !hintButton.parentElement.querySelector('button[title="Get Prompt Suggestions"]')) {
+      createSuggestionButton();
+    }
   }
 }
 

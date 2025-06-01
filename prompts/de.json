@@ -1,0 +1,157 @@
+[
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Rollenspezifizierung",
+    "type": "Beispiel",
+    "prompt_text": "Stell dir vor, du bist {1}, spezialisiert auf {2}. Schreibe {3}, der/die {4}.",
+    "prompt_example": "Stell dir vor, du bist ein erfahrener Texter, spezialisiert auf Verkaufstexte für SaaS-Startups. Schreibe einen kurzen (3-4 Sätze) Werbetext für ein neues KI-Tool, das bei der Analyse von Kundenfeedback hilft.",
+    "explanation": "Anstatt einer allgemeinen Rolle wird eine spezifische angegeben, um die Antwortqualität zu verbessern."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Rollenspezifizierung",
+    "type": "Beispiel",
+    "prompt_text": "Handle als {1}. Erkläre {2} in einfachen Worten, als wäre es für {3}.",
+    "prompt_example": "Handle als Historiker, spezialisiert auf das Römische Reich während der Späten Republik. Erkläre die Gründe für den Fall der Republik in einfachen Worten, als wäre es für einen Schüler.",
+    "explanation": "Rollenspezifizierung hilft, den Stil und die Tiefe der Antwort anzupassen."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Multi-Agenten-Ansatz",
+    "type": "Beispiel für Benutzer (Strukturierung)",
+    "prompt_text": "Lass uns die Aufgabe in Teile aufteilen. **Teil 1 ({1}):** {2}. **Teil 2 ({3}):** {4}. **Teil 3 ({5}):** {6}.",
+    "prompt_example": "Lass uns die Aufgabe in Teile aufteilen. **Teil 1 (Datenanalyst):** Analysiere die bereitgestellten Verkaufsdaten und identifiziere die wichtigsten Trends. **Teil 2 (Marketingexperte):** Basierend auf der Trendanalyse schlage 3 Marketingstrategien vor. **Teil 3 (Texter):** Schreibe einen Werbeslogan für jede vorgeschlagene Strategie.",
+    "explanation": "Aufteilung einer komplexen Aufgabe in Unteraufgaben mit Rollenzuweisung für jede."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Gedankenkette (Chain of Thought)",
+    "type": "Beispiel",
+    "prompt_text": "Löse die folgende Aufgabe, **indem du Schritt für Schritt argumentierst (zeige alle Stufen deiner Gedanken)**: {1}",
+    "prompt_example": "Löse die folgende Aufgabe, **indem du Schritt für Schritt argumentierst (zeige alle Stufen deiner Gedanken)**: In einem Geschäft waren 100 Äpfel. 20% wurden morgens verkauft und 10% der verbleibenden am Nachmittag. Wie viele Äpfel waren am Abend noch übrig?",
+    "explanation": "Aufforderung an das neuronale Netzwerk, Zwischenschritte der Argumentation auszugeben."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Gedankenkette mit Code",
+    "type": "Beispiel",
+    "prompt_text": "Berechne {1}. **Stelle zuerst die Lösungslogik als Python-Pseudocode dar, dann gib die endgültige Antwort.**",
+    "prompt_example": "Berechne Zinseszins für eine Einlage von 1000€ bei 5% Jahreszins für 3 Jahre mit jährlicher Kapitalisierung. **Stelle zuerst die Lösungslogik als Python-Pseudocode dar, dann gib die endgültige Antwort.**",
+    "explanation": "Implementierung der Lösung als Pseudocode zur Verbesserung der Genauigkeit, besonders bei Berechnungsaufgaben."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Wissensbaum",
+    "type": "Benutzerhinweis (Strukturierung)",
+    "prompt_text": "Ich möchte einen Artikel über {1} schreiben. **Schlage eine Artikelstruktur vor, bei der jeder Punkt mehrere Unterpunkte oder alternative Gedankenentwicklungen haben kann.** Zum Beispiel, wenn ich über {2} schreibe, könnte eine Option '{3}' sein und eine andere '{4}'.",
+    "prompt_example": "Ich möchte einen Artikel über Klimawandel schreiben. **Schlage eine Artikelstruktur vor, bei der jeder Punkt mehrere Unterpunkte oder alternative Gedankenentwicklungen haben kann.** Zum Beispiel, wenn ich über Klimawandelursachen schreibe, könnte eine Option 'natürliche Ursachen' sein und eine andere 'anthropogene Faktoren'.",
+    "explanation": "Aufteilung der Aufgabe in alternative Optionen mit der Möglichkeit, zu früheren Stufen zurückzukehren."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Kontrastives Denken",
+    "type": "Beispiel",
+    "prompt_text": "Für das Thema '{1}' **stelle zuerst Argumente dafür, dann dagegen dar. Ziehe dann eine Schlussfolgerung, welche Argumentationsreihe überzeugender erscheint und warum.**",
+    "prompt_example": "Für das Thema 'Vor- und Nachteile von Remote-Arbeit' **stelle zuerst Argumente dafür, dann dagegen dar. Ziehe dann eine Schlussfolgerung, welche Argumentationsreihe überzeugender erscheint und warum.**",
+    "explanation": "Generierung sowohl korrekter als auch inkorrekter (oder gegenteiliger) Antworten zur Verbesserung des Fokus."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Entwurfskette",
+    "type": "Beispiel",
+    "prompt_text": "Schreibe einen kurzen Aufsatz zum Thema '{1}'. **Formuliere in jedem Argumentationsschritt den Kerngedanken dieses Schritts als sehr kurze Zusammenfassung (bis zu 5 Wörtern), bevor du weitermachst.**",
+    "prompt_example": "Schreibe einen kurzen Aufsatz zum Thema 'Einfluss sozialer Netzwerke auf die Gesellschaft'. **Formuliere in jedem Argumentationsschritt den Kerngedanken dieses Schritts als sehr kurze Zusammenfassung (bis zu 5 Wörtern), bevor du weitermachst.**",
+    "explanation": "Erstellung minimalistischer Zusammenfassungen in jedem Argumentationsschritt."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Mehrere Paradigmen",
+    "type": "Beispiel",
+    "prompt_text": "Erkläre, wie {1} funktioniert. **Verwende zuerst eine einfache Erklärung in natürlicher Sprache, dann stelle eine vereinfachte algorithmische Abfolge seiner Funktionsweise dar und, wenn möglich, die wichtigsten physikalischen Prinzipien in Form von Formeln oder symbolischen Notationen.**",
+    "prompt_example": "Erkläre, wie ein Düsentriebwerk funktioniert. **Verwende zuerst eine einfache Erklärung in natürlicher Sprache, dann stelle eine vereinfachte algorithmische Abfolge seiner Funktionsweise dar und, wenn möglich, die wichtigsten physikalischen Prinzipien in Form von Formeln oder symbolischen Notationen.**",
+    "explanation": "Verwendung verschiedener Ansätze (natürliche Sprache, Algorithmen, Symbole) zur Lösung der Aufgabe."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Selbstkritik und Konfidenzangabe",
+    "type": "Beispiel",
+    "prompt_text": "Beantworte die Frage: '{1}'. **Bewerte nach deiner Antwort deine Konfidenz auf einer Skala von 1 bis 10 und, falls die Konfidenz unter 7 liegt, schlage alternative Optionen vor oder gib an, welche Informationen dir fehlten.**",
+    "prompt_example": "Beantworte die Frage: 'Was werden die Folgen der globalen Erwärmung in 50 Jahren sein?'. **Bewerte nach deiner Antwort deine Konfidenz auf einer Skala von 1 bis 10 und, falls die Konfidenz unter 7 liegt, schlage alternative Optionen vor oder gib an, welche Informationen dir fehlten.**",
+    "explanation": "Aufforderung an das neuronale Netzwerk, seine Konfidenz zu bewerten und Alternativen vorzuschlagen."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Platzierung wichtiger Informationen ('Meta-Sandwich')",
+    "type": "Benutzeranweisung",
+    "prompt_text": "Hauptaufgabe: {1}. {2} Und zum Schluss, stelle sicher, dass du {3}.",
+    "prompt_example": "Hauptaufgabe: Erstelle einen überzeugenden Werbetext. Kontext: neues Produkt für Marketingautomatisierung. Und zum Schluss, stelle sicher, dass du alle wichtigen Produktvorteile hervorgehoben hast.",
+    "explanation": "Platzierung wichtiger Informationen am Anfang und/oder Ende des Prompts."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Informationspriorisierung",
+    "type": "Benutzeranweisung",
+    "prompt_text": "Ich brauche einen Text. **[Priorität 1: {1}]** [Priorität 2: {2}] [Priorität 3: {3}] Kontext: {4}.",
+    "prompt_example": "Ich brauche einen Text. **[Priorität 1: Das Wichtigste ist, dass er überzeugend ist.]** [Priorität 2: Er sollte nicht länger als 300 Wörter sein.] [Priorität 3: Verwende einfache Sprache.] Kontext: Beschreibung einer neuen mobilen Anwendung.",
+    "explanation": "Angabe der Priorität für jeden Informationsblock im Prompt."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Verengender Detailtrichter",
+    "type": "Beispiel (iterativ)",
+    "prompt_text": "Lass uns mit dem Allgemeinen beginnen: {1}. **Schlage zuerst {2} vor. Wenn ich dann {3} wähle, detailliere {4}. Nach der Wahl von {5} schlage {6} vor.**",
+    "prompt_example": "Lass uns mit dem Allgemeinen beginnen: Ich brauche Hilfe bei der Planung einer Reise nach Italien. **Schlage zuerst allgemeine Regionen für den ersten Besuch vor. Wenn ich dann eine Region wähle, detailliere mögliche Städte. Nach der Wahl einer Stadt schlage Sehenswürdigkeiten und Aktivitätsmöglichkeiten vor.**",
+    "explanation": "Beginn mit einer allgemeinen Aufgabe und schrittweise Verengung auf spezifische Details durch mehrere Iterationen."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Zwischenzusammenfassung",
+    "type": "Beispiel",
+    "prompt_text": "Analysiere diesen langen Text: {1}. **Erstelle nach jeweils 3-4 Absätzen eine kurze Zusammenfassung des gelesenen Teils, bevor du mit der Analyse fortfährst.** Gib am Ende eine allgemeine Schlussfolgerung.",
+    "prompt_example": "Analysiere diesen langen Text: [Text eines Artikels über den Einfluss von Technologie auf Bildung]. **Erstelle nach jeweils 3-4 Absätzen eine kurze Zusammenfassung des gelesenen Teils, bevor du mit der Analyse fortfährst.** Gib am Ende eine allgemeine Schlussfolgerung.",
+    "explanation": "Aufforderung an das neuronale Netzwerk, zusammenfassende Schlussfolgerungen nach bedeutenden Informationsblöcken zu ziehen."
+  },
+  {
+    "category": "Allgemeine Techniken",
+    "sub_category": "Prompt-Block-Reihenfolge",
+    "type": "Benutzeranweisung",
+    "prompt_text": "Um mich besser zu verstehen, gib mir zuerst den **Kontext** ({1}). Formuliere dann klar die **Aufgabe** ({2}). Und liste schließlich die **Anforderungen an das Ergebnis** ({3}) auf.",
+    "prompt_example": "Um mich besser zu verstehen, gib mir zuerst den **Kontext** (worum es geht, was der Hintergrund ist). Formuliere dann klar die **Aufgabe** (was konkret getan werden muss). Und liste schließlich die **Anforderungen an das Ergebnis** (Format, Stil, Einschränkungen) auf.",
+    "explanation": "Empfehlung der natürlichen Gedankenprozessreihenfolge: Kontext, Aufgabe, Anforderungen."
+  },
+  {
+    "category": "Spezialisierte Prompts",
+    "scenario": "Benutzer auf Code-Seite",
+    "prompt_text": "Du bist {1}. Analysiere diesen Code: {2}. Erkläre deine Vorschläge **Schritt für Schritt**.",
+    "prompt_example": "Du bist ein Senior-Entwickler mit 10 Jahren Python-Erfahrung. Analysiere diesen Code: [Code von der Seite]. Erkläre deine Vorschläge **Schritt für Schritt**.",
+    "explanation": "Anpassung von Rolle und Aufgabe an den Seitenkontext (z.B. Code-Analyse)."
+  },
+  {
+    "category": "Spezialisierte Prompts",
+    "scenario": "Benutzer liest Nachrichtenartikel",
+    "prompt_text": "Du bist {1}. Erstelle eine kurze Zusammenfassung dieses Artikels, indem du {2} hervorhebst. **Bewerte deine Konfidenz in {3}.**",
+    "prompt_example": "Du bist ein objektiver Medienanalytiker. Erstelle eine kurze Zusammenfassung dieses Artikels, indem du die wichtigsten Fakten und mögliche Voreingenommenheiten des Autors hervorhebst. **Bewerte deine Konfidenz in der Identifizierung von Voreingenommenheiten.**",
+    "explanation": "Anpassung der Rolle für die Analyse des Seiteninhalts (z.B. Nachrichtenartikel)."
+  },
+  {
+    "category": "Spezialisierte Prompts",
+    "scenario": "Benutzer auf Produktseite",
+    "prompt_text": "Du bist {1}. Basierend auf Informationen über dieses Produkt: {2}, schreibe {3}. **Stelle zuerst die Fakten dar, dann deine Meinung.**",
+    "prompt_example": "Du bist ein Experte für das Schreiben von Bewertungen. Basierend auf Informationen über dieses Produkt: [Informationen von der Seite], schreibe eine ausgewogene Bewertung mit 2-3 Vorteilen und 1-2 potenziellen Nachteilen. **Stelle zuerst die Fakten dar, dann deine Meinung.**",
+    "explanation": "Anpassung der Rolle für die Generierung von seitenbezogenem Inhalt (z.B. Produktbewertung)."
+  },
+  {
+    "category": "Prompt-Vorlagen",
+    "template_name": "Allgemeine Vorlage mit Rolle und Aufgabe",
+    "prompt_template": "Handle als {1}. Meine Aufgabe: {2}. Wichtige Anforderungen: {3}. Bitte {4}.",
+    "prompt_example": "Handle als erfahrener Marketingexperte. Meine Aufgabe: Erstelle eine Strategie zur Förderung eines neuen Produkts. Wichtige Anforderungen: begrenztes Budget, Zielgruppe - junge Berufstätige. Bitte schlage konkrete Schritte und Förderkanäle vor.",
+    "explanation": "Universelle Vorlage für schnelle Erstellung strukturierter Prompts durch den Benutzer."
+  },
+  {
+    "category": "Prompt-Vorlagen",
+    "template_name": "Analysevorlage mit 'Gedankenkette'",
+    "prompt_template": "Analysiere die folgenden Informationen: {1}. Verwende die 'Gedankenkette'-Methode, um zu einer Schlussfolgerung über {2} zu kommen. Bewerte deine Konfidenz im Ergebnis.",
+    "prompt_example": "Analysiere die folgenden Informationen: Verkaufsdaten des letzten Quartals. Verwende die 'Gedankenkette'-Methode, um zu einer Schlussfolgerung über die Gründe für den Umsatzrückgang zu kommen. Bewerte deine Konfidenz im Ergebnis.",
+    "explanation": "Vorlage mit der 'Gedankenkette'-Methode und Konfidenzbewertung."
+  }
+]

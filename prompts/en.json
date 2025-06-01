@@ -1,0 +1,157 @@
+[
+  {
+    "category": "General Techniques",
+    "sub_category": "Role Specification",
+    "type": "Example",
+    "prompt_text": "Imagine you are {1}, specializing in {2}. Write {3} that helps {4}.",
+    "prompt_example": "Imagine you are an experienced copywriter specializing in creating sales copy for SaaS startups. Write a short (3-4 sentences) promotional text for a new AI tool that helps analyze customer feedback.",
+    "explanation": "Instead of a general role, a specific one is indicated to improve response quality."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Role Specification",
+    "type": "Example",
+    "prompt_text": "Act as {1}. Explain {2} in simple terms, as if for {3}.",
+    "prompt_example": "Act as a historian specializing in the Roman Empire during the Late Republic. Explain the reasons for the fall of the Republic in simple terms, as if for a school student.",
+    "explanation": "Role specification helps adapt the style and depth of the response."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Multi-agent Approach",
+    "type": "Example for User (Structuring)",
+    "prompt_text": "Let's break down the task into parts. **Part 1 ({1}):** {2}. **Part 2 ({3}):** {4}. **Part 3 ({5}):** {6}.",
+    "prompt_example": "Let's break down the task into parts. **Part 1 (Data Analyst):** Analyze the provided sales data and identify key trends. **Part 2 (Marketer):** Based on the trend analysis, suggest 3 marketing strategies. **Part 3 (Copywriter):** Write one advertising slogan for each proposed strategy.",
+    "explanation": "Breaking down a complex task into subtasks with role assignments for each."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Chain of Thought",
+    "type": "Example",
+    "prompt_text": "Solve the following problem, **reasoning step by step (show all stages of your thoughts)**: {1}",
+    "prompt_example": "Solve the following problem, **reasoning step by step (show all stages of your thoughts)**: There were 100 apples in the store. 20% were sold in the morning, and 10% of the remaining were sold in the afternoon. How many apples were left by evening?",
+    "explanation": "Request for the neural network to output intermediate reasoning steps."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Chain of Thought with Code",
+    "type": "Example",
+    "prompt_text": "Calculate {1}. **First present the solution logic as Python pseudocode, then give the final answer.**",
+    "prompt_example": "Calculate compound interest for a $1000 deposit at 5% annual interest for 3 years with annual capitalization. **First present the solution logic as Python pseudocode, then give the final answer.**",
+    "explanation": "Implementation of the solution as pseudocode to improve accuracy, especially in calculation tasks."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Knowledge Tree",
+    "type": "User Hint (Structuring)",
+    "prompt_text": "I want to write an article about {1}. **Suggest an article structure where each point can have several subpoints or alternative thought developments.** For example, if I'm writing about {2}, one option could be '{3}', and another – '{4}'.",
+    "prompt_example": "I want to write an article about climate change. **Suggest an article structure where each point can have several subpoints or alternative thought developments.** For example, if I'm writing about climate change causes, one option could be 'natural causes', and another – 'anthropogenic factors'.",
+    "explanation": "Breaking down the task into alternative options with the ability to return to previous stages."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Contrastive Reasoning",
+    "type": "Example",
+    "prompt_text": "For the topic '{1}', **first present arguments in favor, then arguments against. After that, make a conclusion about which set of arguments seems more convincing to you and why.**",
+    "prompt_example": "For the topic 'advantages and disadvantages of remote work', **first present arguments in favor, then arguments against. After that, make a conclusion about which set of arguments seems more convincing to you and why.**",
+    "explanation": "Generation of both correct and incorrect (or opposite) answers to improve focus."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Draft Chain",
+    "type": "Example",
+    "prompt_text": "Write a brief essay on the topic '{1}'. **At each stage of reasoning, formulate the key thought of this stage as a very short summary (up to 5 words) before moving on.**",
+    "prompt_example": "Write a brief essay on the topic 'impact of social networks on society'. **At each stage of reasoning, formulate the key thought of this stage as a very short summary (up to 5 words) before moving on.**",
+    "explanation": "Creation of minimalistic summaries at each step of reasoning."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Multiple Paradigms",
+    "type": "Example",
+    "prompt_text": "Explain how {1} works. **Use first a simple explanation in natural language, then provide a simplified algorithmic sequence of its operation, and, if possible, the main physical principles in the form of formulas or symbolic notations.**",
+    "prompt_example": "Explain how a jet engine works. **Use first a simple explanation in natural language, then provide a simplified algorithmic sequence of its operation, and, if possible, the main physical principles in the form of formulas or symbolic notations.**",
+    "explanation": "Using various approaches (natural language, algorithms, symbols) to solve the task."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Self-criticism and Confidence Indication",
+    "type": "Example",
+    "prompt_text": "Answer the question: '{1}'. **After answering, rate your confidence in it on a scale from 1 to 10 and, if confidence is below 7, suggest alternative options or indicate what information you lacked.**",
+    "prompt_example": "Answer the question: 'What will be the consequences of global warming in 50 years?'. **After answering, rate your confidence in it on a scale from 1 to 10 and, if confidence is below 7, suggest alternative options or indicate what information you lacked.**",
+    "explanation": "Request for the neural network to evaluate its confidence and suggest alternatives."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Key Information Placement ('Meta-sandwich')",
+    "type": "User Instruction",
+    "prompt_text": "Key task: {1}. {2} And in conclusion, make sure you {3}.",
+    "prompt_example": "Key task: create a compelling advertising text. Context: new product for marketing automation. And in conclusion, make sure you highlighted all key product benefits.",
+    "explanation": "Placement of important information at the beginning and/or end of the prompt."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Information Prioritization",
+    "type": "User Instruction",
+    "prompt_text": "I need a text. **[Priority 1: {1}]** [Priority 2: {2}] [Priority 3: {3}] Context: {4}.",
+    "prompt_example": "I need a text. **[Priority 1: The main thing is that it should be convincing.]** [Priority 2: It should be no longer than 300 words.] [Priority 3: Use simple language.] Context: description of a new mobile application.",
+    "explanation": "Indication of priority for each block of information in the prompt."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Narrowing Detail Funnel",
+    "type": "Example (Iterative)",
+    "prompt_text": "Let's start with the general: {1}. **First suggest {2}. Then, when I choose {3}, detail {4}. After choosing {5}, suggest {6}.**",
+    "prompt_example": "Let's start with the general: I need help planning a trip to Italy. **First suggest general regions interesting for first visit. Then, when I choose a region, detail possible cities. After choosing a city, suggest attractions and activity options.**",
+    "explanation": "Starting with a general task and gradually narrowing down to specific details through several iterations."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Intermediate Summarization",
+    "type": "Example",
+    "prompt_text": "Analyze this long text: {1}. **After every 3-4 paragraphs, make a brief summary of the read part before continuing the analysis.** At the end, give a general conclusion.",
+    "prompt_example": "Analyze this long text: [text of an article about the impact of technology on education]. **After every 3-4 paragraphs, make a brief summary of the read part before continuing the analysis.** At the end, give a general conclusion.",
+    "explanation": "Request for the neural network to make summarizing conclusions after significant blocks of information."
+  },
+  {
+    "category": "General Techniques",
+    "sub_category": "Prompt Block Order",
+    "type": "User Instruction",
+    "prompt_text": "To help me understand you better, first give me the **context** ({1}). Then clearly formulate the **task** ({2}). And finally, list the **requirements for the result** ({3}).",
+    "prompt_example": "To help me understand you better, first give me the **context** (what it's about, what's the background). Then clearly formulate the **task** (what specifically needs to be done). And finally, list the **requirements for the result** (format, style, limitations).",
+    "explanation": "Recommendation of natural thought process order: context, task, requirements."
+  },
+  {
+    "category": "Specialized Prompts",
+    "scenario": "User on Code Page",
+    "prompt_text": "You are {1}. Analyze this code: {2}. Explain your suggestions **step by step**.",
+    "prompt_example": "You are a senior developer with 10 years of Python experience. Analyze this code: [code from the page]. Explain your suggestions **step by step**.",
+    "explanation": "Adaptation of role and task to page context (e.g., code analysis)."
+  },
+  {
+    "category": "Specialized Prompts",
+    "scenario": "User Reading News Article",
+    "prompt_text": "You are {1}. Make a brief summary of this article, highlighting {2}. **Rate your confidence in {3}.**",
+    "prompt_example": "You are an objective media analyst. Make a brief summary of this article, highlighting key facts and possible author biases. **Rate your confidence in identifying biases.**",
+    "explanation": "Adaptation of role for page content analysis (e.g., news article)."
+  },
+  {
+    "category": "Specialized Prompts",
+    "scenario": "User on Product Page",
+    "prompt_text": "You are {1}. Based on information about this product: {2}, write {3}. **First state the facts, then your opinion.**",
+    "prompt_example": "You are an expert in writing reviews. Based on information about this product: [information from the page], write a balanced review, indicating 2-3 pros and 1-2 potential cons. **First state the facts, then your opinion.**",
+    "explanation": "Adaptation of role for generating content related to the page (e.g., product review)."
+  },
+  {
+    "category": "Prompt Templates",
+    "template_name": "General Template with Role and Task",
+    "prompt_template": "Act as {1}. My task: {2}. Key requirements: {3}. Please {4}.",
+    "prompt_example": "Act as an experienced marketer. My task: create a strategy for promoting a new product. Key requirements: limited budget, target audience - young professionals. Please suggest specific steps and promotion channels.",
+    "explanation": "Universal template for quick creation of structured prompts by the user."
+  },
+  {
+    "category": "Prompt Templates",
+    "template_name": "Analysis Template with 'Chain of Thought'",
+    "prompt_template": "Analyze the following information: {1}. Using the 'chain of thought' method, come to a conclusion about {2}. Rate your confidence in the result.",
+    "prompt_example": "Analyze the following information: sales data for the last quarter. Using the 'chain of thought' method, come to a conclusion about the reasons for the sales decline. Rate your confidence in the result.",
+    "explanation": "Template including the 'chain of thought' method and confidence rating."
+  }
+]

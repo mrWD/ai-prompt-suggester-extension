@@ -1,0 +1,13 @@
+[
+  {
+    "category": "Общие техники",
+    "title": "Конкретизация роли",
+    "template": "Imagine that you are <strong>{role}</strong> specialized on <strong>{specialization}</strong>. Write <strong>{task}</strong>, to help <strong>{goal}</strong>.",
+    "inputs": [
+      {"name": "role", "label": "Role"},
+      {"name": "specialization", "label": "Specialization"},
+      {"name": "task", "label": "Task"},
+      {"name": "goal", "label": "Goal"}
+    ]
+  }
+]

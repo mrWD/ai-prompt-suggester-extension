@@ -478,6 +478,11 @@ function createSuggestionButton() {
 
 // Show the modal
 async function showModal() {
+  // Check if modal exists, if not create it
+  if (!document.getElementById('prompt-suggester-modal')) {
+    createModal();
+  }
+
   document.getElementById('prompt-suggester-modal').style.display = 'block';
   document.getElementById('modal-overlay').style.display = 'block';
   const prompts = await loadPrompts(document.getElementById('modal-language').value);
@@ -710,6 +715,9 @@ function applyPromptToChat(prompt) {
     inputElement = document.querySelector('.border-default.ring-offset-background.flex.w-full.rounded-md.px-3.py-2.disabled\\:cursor-not-allowed.disabled\\:opacity-50.transition-all.duration-200.focus-visible\\:ring-none.firefox\\:min-h-16.sm\\:firefox\\:min-h-0.relative.m-0.box-border.h-10.min-h-0.resize-none.border-0.bg-transparent.pl-2.text-base.placeholder\\:text-placeholder.focus-visible\\:ring-0.focus-visible\\:ring-offset-0.focus-visible\\:outline-hidden.focus-visible\\:outline-0.sm\\:text-base') ||
                   document.querySelector('textarea[placeholder*="Message"]') ||
                   document.querySelector('[contenteditable="true"]');
+  } else if (url.includes('perplexity.ai')) {
+    // Perplexity
+    inputElement = document.querySelector('textarea#ask-input');
   } else if (url.includes('chat.deepseek.com')) {
     // DeepSeek
     inputElement = document.querySelector('textarea#chat-input');

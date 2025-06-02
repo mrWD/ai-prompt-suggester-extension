@@ -2,11 +2,9 @@
   "manifest_version": 3,
   "name": "AI Prompt Suggester",
   "version": "1.0",
-  "description": "Suggests and customizes prompts for ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat, LM Arena.",
+  "description": "Get AI prompt suggestions for various chat platforms",
   "permissions": [
-    "storage",
-    "activeTab",
-    "scripting"
+    "storage"
   ],
   "host_permissions": [
     "https://chat.openai.com/*",
@@ -14,9 +12,9 @@
     "https://claude.ai/*",
     "https://chat.lmsys.org/*",
     "https://chatgpt.com/*",
-    "https://www.perplexity.ai/*",
-    "https://grok.com/*",
     "https://chat.mistral.ai/*",
+    "https://perplexity.ai/*",
+    "https://grok.com/*",
     "https://chat.deepseek.com/*",
     "https://copilot.microsoft.com/*",
     "https://chat.qwen.ai/*",
@@ -30,20 +28,25 @@
         "https://claude.ai/*",
         "https://chat.lmsys.org/*",
         "https://chatgpt.com/*",
-        "https://www.perplexity.ai/*",
-        "https://grok.com/*",
         "https://chat.mistral.ai/*",
+        "https://perplexity.ai/*",
+        "https://grok.com/*",
         "https://chat.deepseek.com/*",
         "https://copilot.microsoft.com/*",
         "https://chat.qwen.ai/*",
         "https://lmarena.ai/*"
       ],
-      "js": ["content.js"]
+      "js": [
+        "src/js/utils/PlatformUtils.js",
+        "src/js/utils/ChatInputUtils.js",
+        "src/js/services/PromptService.js",
+        "src/js/components/Modal.js",
+        "src/js/components/SuggestionButton.js",
+        "src/js/content.js"
+      ],
+      "type": "module"
     }
   ],
-  "action": {
-    "default_popup": "popup.html"
-  },
   "web_accessible_resources": [
     {
       "resources": [
@@ -55,14 +58,22 @@
         "https://claude.ai/*",
         "https://chat.lmsys.org/*",
         "https://chatgpt.com/*",
-        "https://www.perplexity.ai/*",
-        "https://grok.com/*",
         "https://chat.mistral.ai/*",
+        "https://perplexity.ai/*",
+        "https://grok.com/*",
         "https://chat.deepseek.com/*",
         "https://copilot.microsoft.com/*",
         "https://chat.qwen.ai/*",
         "https://lmarena.ai/*"
       ]
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
 }

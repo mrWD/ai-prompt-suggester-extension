@@ -10,6 +10,8 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 - 🔄 Real-time prompt preview
 - 🎨 Clean and intuitive interface
 - 🚀 Seamless integration with chat platforms
+- ⌨️ Keyboard navigation support
+- 🎯 Improved platform-specific selectors
 
 ## Supported Platforms
 
@@ -39,7 +41,18 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 3. Select your preferred language
 4. Browse and select a prompt
 5. Customize the prompt if needed
+   - Use Tab/Arrow keys to navigate between inputs
+   - Press Enter to apply the prompt
 6. Click "Apply" to insert the prompt into the chat
+
+## Recent Updates
+
+- Improved ChatGPT integration with new selector
+- Enhanced Grok input handling
+- Better keyboard navigation support
+- Optimized modal performance
+- Fixed async prompt loading
+- Improved error handling
 
 ## Support the Project
 

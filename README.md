@@ -12,6 +12,8 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 - 🚀 Seamless integration with chat platforms
 - ⌨️ Keyboard navigation support
 - 🎯 Improved platform-specific selectors
+- 🔒 Robust error handling and state management
+- 📦 Modular architecture with service-based design
 
 ## Supported Platforms
 
@@ -45,14 +47,25 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
    - Press Enter to apply the prompt
 6. Click "Apply" to insert the prompt into the chat
 
+## Technical Features
+
+- **State Management**: Centralized state management using a dedicated PopupState class
+- **Error Handling**: Robust error handling with graceful fallbacks
+- **Service Architecture**: Modular design with separate services for different functionalities
+- **Dynamic Inputs**: Smart placeholder detection and input field management
+- **Cross-Platform Support**: Unified interface for multiple AI chat platforms
+- **Performance Optimization**: Efficient DOM updates and event handling
+
 ## Recent Updates
 
-- Improved ChatGPT integration with new selector
-- Enhanced Grok input handling
+- Improved state management with PopupState class
+- Enhanced error handling and recovery mechanisms
+- Optimized prompt loading and caching
 - Better keyboard navigation support
-- Optimized modal performance
+- Improved modal performance
 - Fixed async prompt loading
-- Improved error handling
+- Enhanced platform-specific selectors
+- Added support for new AI platforms
 
 ## Support the Project
 
@@ -64,7 +77,12 @@ If you find this extension helpful, consider supporting its development:
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. When contributing, please ensure:
+
+1. Your code follows the existing architecture patterns
+2. You include appropriate error handling
+3. You update the documentation for any new features
+4. You test your changes across different platforms
 
 ## License
 

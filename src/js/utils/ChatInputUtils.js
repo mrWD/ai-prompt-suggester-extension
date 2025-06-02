@@ -15,37 +15,37 @@ class ChatInputUtils {
     const url = window.location.href;
 
     if (url.includes('chat.openai.com') || url.includes('chatgpt.com')) {
-      return window.ChatGPTInput.getInputElement();
+      return window.ChatGPTPlatform.getInputElement();
     }
     if (url.includes('gemini.google.com')) {
-      return window.GeminiInput.getInputElement();
+      return window.GeminiPlatform.getInputElement();
     }
     if (url.includes('claude.ai')) {
-      return window.ClaudeInput.getInputElement();
+      return window.ClaudePlatform.getInputElement();
     }
     if (url.includes('grok.com')) {
-      return window.GrokInput.getInputElement();
+      return window.GrokPlatform.getInputElement();
     }
     if (url.includes('chat.mistral.ai')) {
-      return window.MistralInput.getInputElement();
+      return window.MistralPlatform.getInputElement();
     }
     if (url.includes('www.perplexity.ai')) {
-      return window.PerplexityInput.getInputElement();
+      return window.PerplexityPlatform.getInputElement();
     }
     if (url.includes('chat.deepseek.com')) {
-      return window.DeepSeekInput.getInputElement();
+      return window.DeepSeekPlatform.getInputElement();
     }
     if (url.includes('copilot.microsoft.com')) {
-      return window.CopilotInput.getInputElement();
+      return window.CopilotPlatform.getInputElement();
     }
     if (url.includes('chat.qwen.ai')) {
-      return window.QwenInput.getInputElement();
+      return window.QwenPlatform.getInputElement();
     }
     if (url.includes('lmarena.ai')) {
-      return window.LMArenaInput.getInputElement();
+      return window.LMArenaPlatform.getInputElement();
     }
     if (url.includes('chat.lmsys.org')) {
-      return window.LeChatInput.getInputElement();
+      return window.LeChatPlatform.getInputElement();
     }
 
     return null;

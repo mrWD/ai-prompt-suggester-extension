@@ -1,14 +1,22 @@
-let currentPrompts = [];
-let selectedPrompt = null;
+// State management
+class PopupState {
+  constructor() {
+    this.currentPrompts = [];
+    this.selectedPrompt = null;
+  }
+}
+
+const state = new PopupState();
 
 // Load prompts based on selected language
 async function loadPrompts(language) {
   try {
-    const response = await fetch(chrome.runtime.getURL(`prompts/${language}.json`));
-    currentPrompts = await response.json();
+    state.currentPrompts = await window.promptService.loadPrompts(language);
     displayPrompts();
   } catch (error) {
     console.error('Error loading prompts:', error);
+    state.currentPrompts = [];
+    displayPrompts();
   }
 }
 
@@ -17,7 +25,7 @@ function displayPrompts() {
   const promptList = document.getElementById('promptList');
   promptList.innerHTML = '';
 
-  currentPrompts.forEach((prompt, index) => {
+  state.currentPrompts.forEach((prompt) => {
     const promptElement = document.createElement('div');
     promptElement.className = 'prompt-item';
 
@@ -40,20 +48,21 @@ function displayPrompts() {
 
 // Handle prompt selection
 function selectPrompt(prompt) {
-  selectedPrompt = prompt;
+  state.selectedPrompt = prompt;
   const customInputs = document.getElementById('customInputs');
   const inputs = customInputs.getElementsByTagName('input');
 
   // Show custom inputs if the prompt has placeholders
-  const hasPlaceholders = (prompt.prompt_text || prompt.prompt_template).includes('[');
+  const promptText = prompt.prompt_text || prompt.prompt_template;
+  const hasPlaceholders = promptText.includes('{');
   customInputs.style.display = hasPlaceholders ? 'block' : 'none';
 
   // Update input placeholders based on the prompt
   if (hasPlaceholders) {
-    const placeholders = (prompt.prompt_text || prompt.prompt_template).match(/\[(.*?)\]/g) || [];
+    const placeholders = promptText.match(/\{(\d+)\}/g) || [];
     placeholders.forEach((placeholder, index) => {
       if (inputs[index]) {
-        inputs[index].placeholder = placeholder.slice(1, -1);
+        inputs[index].placeholder = `Input ${index + 1}`;
         inputs[index].style.display = 'block';
       }
     });
@@ -67,15 +76,15 @@ function selectPrompt(prompt) {
 
 // Apply the selected prompt to the chat input
 async function applyPrompt() {
-  if (!selectedPrompt) return;
+  if (!state.selectedPrompt) return;
 
-  let promptText = selectedPrompt.prompt_text || selectedPrompt.prompt_template;
+  let promptText = state.selectedPrompt.prompt_text || state.selectedPrompt.prompt_template;
   const inputs = document.getElementById('customInputs').getElementsByTagName('input');
 
   // Replace placeholders with user input
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].style.display !== 'none') {
-      promptText = promptText.replace(/\[.*?\]/, inputs[i].value);
+      promptText = promptText.replace(`{${i + 1}}`, inputs[i].value);
     }
   }
 

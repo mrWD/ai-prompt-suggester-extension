@@ -4,6 +4,7 @@
   "version": "1.0",
   "description": "Get AI prompt suggestions for various chat platforms",
   "permissions": [
+    "activeTab",
     "storage"
   ],
   "host_permissions": [
@@ -86,5 +87,13 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ai-prompt-suggester@example.com",
+      "strict_min_version": "109.0"
+    }
+  },
+  "minimum_chrome_version": "88",
+  "minimum_opera_version": "75"
 }

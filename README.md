@@ -1,6 +1,6 @@
 # AI Prompt Suggester
 
-A Chrome extension that suggests and customizes prompts for various AI chat platforms including ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat, and LM Arena.
+A browser extension that suggests and customizes prompts for various AI chat platforms including ChatGPT, Gemini, Claude, Perplexity, Grok, Mistral, DeepSeek, Copilot, Qwen, Le Chat, and LM Arena.
 
 ## Features
 
@@ -14,6 +14,14 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 - 🎯 Improved platform-specific selectors
 - 🔒 Robust error handling and state management
 - 📦 Modular architecture with service-based design
+
+## Supported Browsers
+
+- Chrome/Chromium (version 88+)
+- Firefox (version 109+)
+- Safari (version 15+)
+- Edge (version 88+)
+- Opera (version 75+)
 
 ## Supported Platforms
 
@@ -31,10 +39,25 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 
 ## Installation
 
+### Chrome/Edge/Opera
 1. Clone this repository or download the ZIP file
-2. Open Chrome and go to `chrome://extensions/`
+2. Open Chrome/Edge/Opera and go to `chrome://extensions/`
 3. Enable "Developer mode" in the top right
 4. Click "Load unpacked" and select the extension directory
+
+### Firefox
+1. Clone this repository or download the ZIP file
+2. Open Firefox and go to `about:debugging#/runtime/this-firefox`
+3. Click "Load Temporary Add-on"
+4. Select any file from the extension directory
+
+### Safari
+1. Clone this repository or download the ZIP file
+2. Open Safari and go to Preferences > Advanced
+3. Enable "Show Develop menu in menu bar"
+4. Go to Develop > Show Extension Builder
+5. Click "+" and select "Add Extension"
+6. Select the extension directory
 
 ## Usage
 

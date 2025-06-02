@@ -1,6 +1,9 @@
 // Modal component for displaying prompt suggestions
 class Modal {
   constructor() {
+    // Add CSS variables to the webpage
+    this.injectThemeStyles();
+
     this.modalHTML = `
       <div id="prompt-suggester-modal" style="
         display: none;
@@ -8,7 +11,7 @@ class Modal {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: white;
+        background: var(--bg-color);
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -17,6 +20,7 @@ class Modal {
         max-width: 600px;
         max-height: 80vh;
         overflow-y: auto;
+        color: var(--text-color);
       ">
         <div style="
           display: flex;
@@ -24,7 +28,7 @@ class Modal {
           align-items: center;
           margin-bottom: 16px;
         ">
-          <h2 style="margin: 0;">Prompt Suggestions</h2>
+          <h2 style="margin: 0; color: var(--text-color);">Prompt Suggestions</h2>
           <div style="display: flex; align-items: center; gap: 8px;">
             <button id="support-button" style="
               background: none;
@@ -32,7 +36,7 @@ class Modal {
               cursor: pointer;
               font-size: 16px;
               padding: 4px 8px;
-              color: #666;
+              color: var(--text-color);
               display: flex;
               align-items: center;
               gap: 4px;
@@ -43,26 +47,27 @@ class Modal {
               font-size: 20px;
               cursor: pointer;
               padding: 4px 8px;
+              color: var(--text-color);
             ">×</button>
           </div>
         </div>
         <div id="support-links" style="
           display: none;
-          background: #f5f5f5;
+          background: var(--support-bg);
           border-radius: 8px;
           padding: 16px;
           margin-bottom: 16px;
         ">
-          <h3 style="margin: 0 0 12px 0; font-size: 16px;">Support the Project</h3>
+          <h3 style="margin: 0 0 12px 0; font-size: 16px; color: var(--text-color);">Support the Project</h3>
           <div style="display: flex; flex-direction: column; gap: 12px;">
             <a href="https://buymeacoffee.com/ipupok" target="_blank" style="
               display: flex;
               align-items: center;
               text-decoration: none;
-              color: #333;
+              color: var(--text-color);
               padding: 8px 12px;
               border-radius: 6px;
-              background: white;
+              background: var(--bg-color);
               transition: background-color 0.2s;
             ">
               <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" style="width: 24px; height: 24px; margin-right: 12px;">
@@ -72,10 +77,10 @@ class Modal {
               display: flex;
               align-items: center;
               text-decoration: none;
-              color: #333;
+              color: var(--text-color);
               padding: 8px 12px;
               border-radius: 6px;
-              background: white;
+              background: var(--bg-color);
               transition: background-color 0.2s;
             ">
               <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi" style="width: 24px; height: 24px; margin-right: 12px;">
@@ -85,10 +90,10 @@ class Modal {
               display: flex;
               align-items: center;
               text-decoration: none;
-              color: #333;
+              color: var(--text-color);
               padding: 8px 12px;
               border-radius: 6px;
-              background: white;
+              background: var(--bg-color);
               transition: background-color 0.2s;
             ">
               <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="width: 24px; height: 24px; margin-right: 12px;">
@@ -100,8 +105,10 @@ class Modal {
           <select id="modal-language" style="
             padding: 8px;
             border-radius: 4px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color);
             width: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
           ">
             <option value="en">English</option>
             <option value="de">Deutsch</option>
@@ -128,6 +135,88 @@ class Modal {
         z-index: 9999;
       "></div>
     `;
+  }
+
+  injectThemeStyles() {
+    // Create style element for theme variables
+    const style = document.createElement('style');
+    style.textContent = `
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #333333;
+        --text-color-secondary: #666666;
+        --border-color: #e0e0e0;
+        --hover-bg: #f5f5f5;
+        --header-bg: #ffffff;
+        --support-bg: #f5f5f5;
+        --button-bg: #007AFF;
+        --button-hover: #0056b3;
+        --input-bg: #ffffff;
+        --input-text: #333333;
+        --placeholder-color: #999999;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-color: #1a1a1a;
+          --text-color: #f0f0f0;
+          --text-color-secondary: #b0b0b0;
+          --border-color: #404040;
+          --hover-bg: #2a2a2a;
+          --header-bg: #1a1a1a;
+          --support-bg: #2a2a2a;
+          --button-bg: #0A84FF;
+          --button-hover: #0066CC;
+          --input-bg: #2a2a2a;
+          --input-text: #f0f0f0;
+          --placeholder-color: #808080;
+        }
+      }
+
+      #prompt-suggester-modal {
+        background: var(--bg-color);
+        color: var(--text-color);
+      }
+
+      #prompt-suggester-modal h2,
+      #prompt-suggester-modal h3 {
+        color: var(--text-color);
+      }
+
+      #prompt-suggester-modal button {
+        color: var(--text-color);
+      }
+
+      #prompt-suggester-modal input {
+        background-color: var(--input-bg);
+        color: var(--input-text);
+        border-color: var(--border-color);
+      }
+
+      #prompt-suggester-modal input::placeholder {
+        color: var(--placeholder-color);
+      }
+
+      #prompt-suggester-modal select {
+        background-color: var(--input-bg);
+        color: var(--input-text);
+        border-color: var(--border-color);
+      }
+
+      #prompt-suggester-modal select option {
+        background-color: var(--input-bg);
+        color: var(--input-text);
+      }
+
+      #prompt-suggester-modal .prompt-category {
+        color: var(--text-color-secondary);
+      }
+
+      #prompt-suggester-modal .prompt-text {
+        color: var(--text-color);
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   create() {
@@ -180,7 +269,7 @@ class Modal {
       promptElement.style.cssText = `
         padding: 12px;
         margin: 8px 0;
-        border: 1px solid #e0e0e0;
+        border: 1px solid var(--border-color);
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.2s;
@@ -189,7 +278,7 @@ class Modal {
       const categoryElement = document.createElement('div');
       categoryElement.style.cssText = `
         font-size: 12px;
-        color: #666;
+        color: var(--text-color-secondary);
         margin-bottom: 4px;
       `;
       categoryElement.textContent = `${prompt.category} > ${prompt.sub_category || prompt.scenario || prompt.template_name}`;
@@ -197,7 +286,7 @@ class Modal {
       const textElement = document.createElement('div');
       textElement.style.cssText = `
         font-size: 14px;
-        color: #333;
+        color: var(--text-color);
         margin-bottom: 8px;
       `;
       textElement.textContent = prompt.prompt_text || prompt.prompt_template;
@@ -225,7 +314,7 @@ class Modal {
         label.style.cssText = `
           display: block;
           font-size: 12px;
-          color: #666;
+          color: var(--text-color-secondary);
           margin-bottom: 4px;
         `;
         label.textContent = `Input ${i}`;
@@ -235,7 +324,7 @@ class Modal {
         input.style.cssText = `
           width: 100%;
           padding: 8px;
-          border: 1px solid #ccc;
+          border: 1px solid var(--border-color);
           border-radius: 4px;
           font-size: 14px;
         `;
@@ -267,8 +356,8 @@ class Modal {
         display: none;
         width: 100%;
         padding: 8px;
-        background-color: #007AFF;
-        color: white;
+        background-color: var(--button-bg);
+        color: var(--text-color);
         border: none;
         border-radius: 4px;
         cursor: pointer;

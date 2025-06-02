@@ -4,31 +4,91 @@
   <meta charset="UTF-8">
   <title>AI Prompt Suggester</title>
   <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --text-color-secondary: #666666;
+      --border-color: #e0e0e0;
+      --hover-bg: #f5f5f5;
+      --header-bg: #ffffff;
+      --support-bg: #f5f5f5;
+      --button-bg: #007AFF;
+      --button-hover: #0056b3;
+      --input-bg: #ffffff;
+      --input-text: #333333;
+      --placeholder-color: #999999;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #1a1a1a;
+        --text-color: #f0f0f0;
+        --text-color-secondary: #b0b0b0;
+        --border-color: #404040;
+        --hover-bg: #2a2a2a;
+        --header-bg: #1a1a1a;
+        --support-bg: #2a2a2a;
+        --button-bg: #0A84FF;
+        --button-hover: #0066CC;
+        --input-bg: #2a2a2a;
+        --input-text: #f0f0f0;
+        --placeholder-color: #808080;
+      }
+    }
+
     body {
       width: 300px;
       padding: 16px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .header {
       text-align: center;
       margin-bottom: 20px;
+      background-color: var(--header-bg);
     }
 
     .header h1 {
       font-size: 18px;
       margin: 0 0 8px 0;
-      color: #333;
+      color: var(--text-color);
     }
 
     .header p {
       font-size: 14px;
-      color: #666;
+      color: var(--text-color);
+      opacity: 0.8;
       margin: 0;
     }
 
+    .theme-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text-color);
+      padding: 4px;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--hover-bg);
+    }
+
     .support-section {
-      background: #f5f5f5;
+      background: var(--support-bg);
       border-radius: 8px;
       padding: 16px;
       margin-top: 16px;
@@ -37,7 +97,7 @@
     .support-section h2 {
       font-size: 16px;
       margin: 0 0 12px 0;
-      color: #333;
+      color: var(--text-color);
     }
 
     .support-links {
@@ -50,15 +110,15 @@
       display: flex;
       align-items: center;
       text-decoration: none;
-      color: #333;
+      color: var(--text-color);
       padding: 8px 12px;
       border-radius: 6px;
-      background: white;
+      background: var(--bg-color);
       transition: background-color 0.2s;
     }
 
     .support-link:hover {
-      background: #e9e9e9;
+      background: var(--hover-bg);
     }
 
     .support-link img {
@@ -74,51 +134,84 @@
     .language-selector {
       margin-bottom: 16px;
     }
+
+    .language-selector select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--input-bg);
+      color: var(--input-text);
+    }
+
     .prompt-list {
       max-height: 400px;
       overflow-y: auto;
     }
+
     .prompt-item {
       padding: 8px;
       margin: 4px 0;
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       cursor: pointer;
+      background-color: var(--bg-color);
+      transition: background-color 0.2s;
     }
+
     .prompt-item:hover {
-      background-color: #f5f5f5;
+      background-color: var(--hover-bg);
     }
+
     .prompt-category {
       font-size: 12px;
-      color: #666;
+      color: var(--text-color-secondary);
       margin-bottom: 4px;
     }
+
     .prompt-text {
       font-size: 14px;
+      color: var(--text-color);
     }
+
     .custom-inputs {
       margin-top: 16px;
       display: none;
     }
+
     .custom-inputs input {
       width: 100%;
       margin: 4px 0;
       padding: 8px;
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
+      background-color: var(--input-bg);
+      color: var(--input-text);
     }
+
+    .custom-inputs input::placeholder {
+      color: var(--placeholder-color);
+    }
+
+    select option {
+      background-color: var(--input-bg);
+      color: var(--input-text);
+    }
+
     button {
       width: 100%;
       padding: 8px;
-      background-color: #007AFF;
+      background-color: var(--button-bg);
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       margin-top: 8px;
+      transition: background-color 0.2s;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: var(--button-hover);
     }
   </style>
 </head>

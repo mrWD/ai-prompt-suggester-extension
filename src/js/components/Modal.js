@@ -151,6 +151,11 @@ class Modal {
   }
 
   async show() {
+    // Create modal if it doesn't exist
+    if (!document.getElementById('prompt-suggester-modal')) {
+      this.create();
+    }
+
     document.getElementById('prompt-suggester-modal').style.display = 'block';
     document.getElementById('modal-overlay').style.display = 'block';
     const prompts = await window.promptService.loadPrompts(document.getElementById('modal-language').value);

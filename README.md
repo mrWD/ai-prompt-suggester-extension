@@ -18,7 +18,7 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 - ChatGPT (chat.openai.com)
 - Google Gemini (gemini.google.com)
 - Claude (claude.ai)
-- Perplexity (perplexity.ai)
+- Perplexity (www.perplexity.ai)
 - Grok (grok.com)
 - Mistral (chat.mistral.ai)
 - DeepSeek (chat.deepseek.com)

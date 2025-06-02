@@ -8,8 +8,9 @@ class PlatformUtils {
       targetElement = document.querySelector('toolbox-drawer-item:last-child');
     } else if (url.includes('claude.ai')) {
       targetElement = document.querySelector('.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0');
-    } else if (url.includes('perplexity.ai')) {
-      targetElement = document.querySelector('.bg-background.dark\\:bg-offsetDark.flex.items-center.justify-self-end.rounded-full.col-start-3.row-start-2.-mr-1');
+    } else if (url.includes('www.perplexity.ai')) {
+      targetElement = document.querySelector('.group.relative.isolate.flex.h-fit.focus\\:outline-none');
+      console.log('targetElement', targetElement);
     } else if (url.includes('grok.com')) {
       targetElement = Array.from(document.querySelectorAll('button')).find(button => button.textContent.trim() === 'Think');
     } else if (url.includes('chat.mistral.ai')) {
@@ -45,7 +46,7 @@ class PlatformUtils {
       config.selector = 'toolbox-drawer-item:last-child';
     } else if (url.includes('claude.ai')) {
       config.selector = '.relative.flex-1.flex.items-center.gap-2.shrink.min-w-0';
-    } else if (url.includes('perplexity.ai')) {
+    } else if (url.includes('www.perplexity.ai')) {
       config.selector = '.bg-background.dark\\:bg-offsetDark.flex.items-center.justify-self-end.rounded-full.col-start-3.row-start-2.-mr-1';
     } else if (url.includes('grok.com')) {
       config.selector = 'button';

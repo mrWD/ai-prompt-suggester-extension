@@ -23,7 +23,10 @@ class SuggestionButton {
 
   create() {
     const targetElement = window.PlatformUtils.getTargetElement();
-    if (!targetElement) return;
+    if (!targetElement) {
+      console.log('No target element found');
+      return;
+    }
 
     const buttonContainer = document.createElement('div');
     buttonContainer.innerHTML = this.buttonHTML;

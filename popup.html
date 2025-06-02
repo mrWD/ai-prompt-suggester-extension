@@ -36,6 +36,13 @@
       }
     }
 
+    /* Cross-browser compatibility */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     body {
       width: 300px;
       padding: 16px;
@@ -43,6 +50,92 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+    }
+
+    /* Ensure consistent button styling across browsers */
+    button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: var(--button-bg);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      margin: 0;
+      padding: 8px;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Ensure consistent select styling across browsers */
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: var(--input-bg);
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-position: right 8px center;
+      background-repeat: no-repeat;
+      background-size: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--input-text);
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      padding: 8px 32px 8px 8px;
+      width: 100%;
+    }
+
+    /* Ensure consistent input styling across browsers */
+    input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--input-text);
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      padding: 8px;
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: var(--placeholder-color);
+      opacity: 1;
+    }
+
+    /* Ensure consistent scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-color-secondary);
+    }
+
+    /* Firefox scrollbar styling */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-color) var(--bg-color);
     }
 
     .header {
@@ -135,15 +228,6 @@
       margin-bottom: 16px;
     }
 
-    .language-selector select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      background-color: var(--input-bg);
-      color: var(--input-text);
-    }
-
     .prompt-list {
       max-height: 400px;
       overflow-y: auto;
@@ -196,18 +280,6 @@
     select option {
       background-color: var(--input-bg);
       color: var(--input-text);
-    }
-
-    button {
-      width: 100%;
-      padding: 8px;
-      background-color: var(--button-bg);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background-color 0.2s;
     }
 
     button:hover {

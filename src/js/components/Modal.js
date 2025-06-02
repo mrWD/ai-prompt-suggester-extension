@@ -215,6 +215,170 @@ class Modal {
       #prompt-suggester-modal .prompt-text {
         color: var(--text-color);
       }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      .modal-content {
+        background-color: var(--bg-color);
+        border-radius: 8px;
+        padding: 20px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .modal-title {
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        padding: 0;
+        color: var(--text-color);
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-close:hover {
+        color: var(--text-color-secondary);
+      }
+
+      .modal-body {
+        margin-bottom: 20px;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .modal-footer button {
+        min-width: 80px;
+        width: auto;
+      }
+
+      /* Cross-browser scrollbar styling */
+      .modal-content::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .modal-content::-webkit-scrollbar-track {
+        background: var(--bg-color);
+      }
+
+      .modal-content::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+
+      .modal-content::-webkit-scrollbar-thumb:hover {
+        background: var(--text-color-secondary);
+      }
+
+      .modal-content {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-color) var(--bg-color);
+      }
+
+      /* Ensure consistent form element styling */
+      .modal-content select,
+      .modal-content input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: var(--input-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        color: var(--input-text);
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        padding: 8px;
+        width: 100%;
+      }
+
+      .modal-content select {
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-position: right 8px center;
+        background-repeat: no-repeat;
+        background-size: 12px;
+        padding-right: 32px;
+      }
+
+      .modal-content input::placeholder {
+        color: var(--placeholder-color);
+        opacity: 1;
+      }
+
+      /* Ensure consistent button styling */
+      .modal-content button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: var(--button-bg);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        padding: 8px 16px;
+        text-align: center;
+      }
+
+      .modal-content button:hover {
+        background-color: var(--button-hover);
+      }
+
+      .modal-content button.secondary {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+      }
+
+      .modal-content button.secondary:hover {
+        background-color: var(--hover-bg);
+      }
     `;
     document.head.appendChild(style);
   }

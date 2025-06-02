@@ -1,0 +1,157 @@
+[
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Especificación del Rol",
+    "type": "Ejemplo",
+    "prompt_text": "Imagina que eres {1}, especializado en {2}. Escribe {3} que ayude a {4}.",
+    "prompt_example": "Imagina que eres un redactor experimentado especializado en la creación de textos publicitarios para startups SaaS. Escribe un breve texto promocional (3-4 frases) para una nueva herramienta de IA que ayuda a analizar los comentarios de los clientes.",
+    "explanation": "En lugar de un rol general, se indica un rol específico para mejorar la calidad de la respuesta."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Especificación del Rol",
+    "type": "Ejemplo",
+    "prompt_text": "Actúa como {1}. Explica {2} en términos simples, como si fuera para {3}.",
+    "prompt_example": "Actúa como un historiador especializado en el Imperio Romano durante el final de la República. Explica las razones de la caída de la República en términos simples, como si fuera para un estudiante.",
+    "explanation": "La especificación del rol ayuda a adaptar el estilo y la profundidad de la respuesta."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Enfoque Multi-agentes",
+    "type": "Ejemplo para Usuario (Estructuración)",
+    "prompt_text": "Descompongamos la tarea en partes. **Parte 1 ({1}):** {2}. **Parte 2 ({3}):** {4}. **Parte 3 ({5}):** {6}.",
+    "prompt_example": "Descompongamos la tarea en partes. **Parte 1 (Analista de Datos):** Analiza los datos de ventas proporcionados e identifica las tendencias clave. **Parte 2 (Marketero):** Basado en el análisis de tendencias, sugiere 3 estrategias de marketing. **Parte 3 (Redactor):** Escribe un eslogan publicitario para cada estrategia propuesta.",
+    "explanation": "Descomposición de una tarea compleja en subtareas con asignación de roles para cada una."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Cadena de Pensamiento",
+    "type": "Ejemplo",
+    "prompt_text": "Resuelve el siguiente problema, **razonando paso a paso (muestra todos los pasos de tu pensamiento)**: {1}",
+    "prompt_example": "Resuelve el siguiente problema, **razonando paso a paso (muestra todos los pasos de tu pensamiento)**: Había 100 manzanas en la tienda. 20% se vendieron por la mañana, y 10% del resto se vendieron por la tarde. ¿Cuántas manzanas quedaron al final del día?",
+    "explanation": "Pide a la red neuronal que muestre los pasos intermedios del razonamiento."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Cadena de Pensamiento con Código",
+    "type": "Ejemplo",
+    "prompt_text": "Calcula {1}. **Primero presenta la lógica de la solución en pseudo-código Python, luego da la respuesta final.**",
+    "prompt_example": "Calcula el interés compuesto para un depósito de 1000€ al 5% de interés anual durante 3 años con capitalización anual. **Primero presenta la lógica de la solución en pseudo-código Python, luego da la respuesta final.**",
+    "explanation": "Implementación de la solución en pseudo-código para mejorar la precisión, especialmente en tareas de cálculo."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Árbol de Conocimiento",
+    "type": "Consejo Usuario (Estructuración)",
+    "prompt_text": "Quiero escribir un artículo sobre {1}. **Sugiere una estructura de artículo donde cada punto pueda tener varios sub-puntos o desarrollos alternativos de pensamiento.** Por ejemplo, si escribo sobre {2}, una opción podría ser '{3}', y otra – '{4}'.",
+    "prompt_example": "Quiero escribir un artículo sobre el cambio climático. **Sugiere una estructura de artículo donde cada punto pueda tener varios sub-puntos o desarrollos alternativos de pensamiento.** Por ejemplo, si escribo sobre las causas del cambio climático, una opción podría ser 'causas naturales', y otra – 'factores antropogénicos'.",
+    "explanation": "Descomposición de la tarea en opciones alternativas con posibilidad de volver a pasos anteriores."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Razonamiento Contrastivo",
+    "type": "Ejemplo",
+    "prompt_text": "Para el tema '{1}', **presenta primero los argumentos a favor, luego los argumentos en contra. Después, saca una conclusión sobre qué conjunto de argumentos te parece más convincente y por qué.**",
+    "prompt_example": "Para el tema 'ventajas y desventajas del trabajo remoto', **presenta primero los argumentos a favor, luego los argumentos en contra. Después, saca una conclusión sobre qué conjunto de argumentos te parece más convincente y por qué.**",
+    "explanation": "Generación tanto de respuestas correctas como incorrectas (u opuestas) para mejorar la concentración."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Cadena de Borradores",
+    "type": "Ejemplo",
+    "prompt_text": "Escribe un breve ensayo sobre el tema '{1}'. **En cada paso del razonamiento, formula el pensamiento clave de ese paso como un resumen muy breve (hasta 5 palabras) antes de continuar.**",
+    "prompt_example": "Escribe un breve ensayo sobre el tema 'impacto de las redes sociales en la sociedad'. **En cada paso del razonamiento, formula el pensamiento clave de ese paso como un resumen muy breve (hasta 5 palabras) antes de continuar.**",
+    "explanation": "Creación de resúmenes minimalistas en cada paso del razonamiento."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Paradigmas Múltiples",
+    "type": "Ejemplo",
+    "prompt_text": "Explica cómo funciona {1}. **Primero usa una explicación simple en lenguaje natural, luego proporciona una secuencia algorítmica simplificada de su funcionamiento y, si es posible, los principios físicos principales en forma de fórmulas o notaciones simbólicas.**",
+    "prompt_example": "Explica cómo funciona un motor a reacción. **Primero usa una explicación simple en lenguaje natural, luego proporciona una secuencia algorítmica simplificada de su funcionamiento y, si es posible, los principios físicos principales en forma de fórmulas o notaciones simbólicas.**",
+    "explanation": "Uso de diversos enfoques (lenguaje natural, algoritmos, símbolos) para resolver la tarea."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Auto-crítica e Indicación de Confianza",
+    "type": "Ejemplo",
+    "prompt_text": "Responde a la pregunta: '{1}'. **Después de responder, evalúa tu confianza en una escala del 1 al 10 y, si la confianza es menor a 7, sugiere opciones alternativas o indica qué información te faltaba.**",
+    "prompt_example": "Responde a la pregunta: '¿Cuáles serán las consecuencias del calentamiento global en 50 años?'. **Después de responder, evalúa tu confianza en una escala del 1 al 10 y, si la confianza es menor a 7, sugiere opciones alternativas o indica qué información te faltaba.**",
+    "explanation": "Pide a la red neuronal que evalúe su confianza y sugiera alternativas."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Colocación de Información Clave ('Meta-sándwich')",
+    "type": "Instrucción Usuario",
+    "prompt_text": "Tarea principal: {1}. {2} Y en conclusión, asegúrate de {3}.",
+    "prompt_example": "Tarea principal: crear un texto publicitario convincente. Contexto: nuevo producto para la automatización del marketing. Y en conclusión, asegúrate de haber destacado todos los beneficios clave del producto.",
+    "explanation": "Colocación de información importante al principio y/o al final del prompt."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Priorización de Información",
+    "type": "Instrucción Usuario",
+    "prompt_text": "Necesito un texto. **[Prioridad 1: {1}]** [Prioridad 2: {2}] [Prioridad 3: {3}] Contexto: {4}.",
+    "prompt_example": "Necesito un texto. **[Prioridad 1: Lo esencial es que sea convincente.]** [Prioridad 2: No debe exceder 300 palabras.] [Prioridad 3: Usa un lenguaje simple.] Contexto: descripción de una nueva aplicación móvil.",
+    "explanation": "Indicación de la prioridad para cada bloque de información en el prompt."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Embudo de Detalles Reducido",
+    "type": "Ejemplo (Iterativo)",
+    "prompt_text": "Empecemos por lo general: {1}. **Primero sugiere {2}. Luego, cuando elija {3}, detalla {4}. Después de elegir {5}, sugiere {6}.**",
+    "prompt_example": "Empecemos por lo general: necesito ayuda para planificar un viaje a Italia. **Primero sugiere regiones generales interesantes para una primera visita. Luego, cuando elija una región, detalla las ciudades posibles. Después de elegir una ciudad, sugiere las atracciones y las opciones de actividades.**",
+    "explanation": "Comienzo con una tarea general y reducción progresiva hacia detalles específicos a través de varias iteraciones."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Resumen Intermedio",
+    "type": "Ejemplo",
+    "prompt_text": "Analiza este texto largo: {1}. **Después de cada 3-4 párrafos, haz un breve resumen de la parte leída antes de continuar con el análisis.** Al final, da una conclusión general.",
+    "prompt_example": "Analiza este texto largo: [texto de un artículo sobre el impacto de la tecnología en la educación]. **Después de cada 3-4 párrafos, haz un breve resumen de la parte leída antes de continuar con el análisis.** Al final, da una conclusión general.",
+    "explanation": "Pide a la red neuronal que haga conclusiones resumidas después de bloques significativos de información."
+  },
+  {
+    "category": "Técnicas Generales",
+    "sub_category": "Orden de Bloques de Prompt",
+    "type": "Instrucción Usuario",
+    "prompt_text": "Para ayudarme a entenderte mejor, primero dame el **contexto** ({1}). Luego formula claramente la **tarea** ({2}). Y finalmente, lista los **requisitos para el resultado** ({3}).",
+    "prompt_example": "Para ayudarme a entenderte mejor, primero dame el **contexto** (de qué se trata, cuál es el contexto). Luego formula claramente la **tarea** (qué debe hacerse específicamente). Y finalmente, lista los **requisitos para el resultado** (formato, estilo, limitaciones).",
+    "explanation": "Recomendación del orden natural del proceso de pensamiento: contexto, tarea, requisitos."
+  },
+  {
+    "category": "Prompts Especializados",
+    "scenario": "Usuario en Página de Código",
+    "prompt_text": "Eres {1}. Analiza este código: {2}. Explica tus sugerencias **paso a paso**.",
+    "prompt_example": "Eres un desarrollador senior con 10 años de experiencia en Python. Analiza este código: [código de la página]. Explica tus sugerencias **paso a paso**.",
+    "explanation": "Adaptación del rol y la tarea al contexto de la página (ej. análisis de código)."
+  },
+  {
+    "category": "Prompts Especializados",
+    "scenario": "Usuario Leyendo un Artículo de Prensa",
+    "prompt_text": "Eres {1}. Haz un breve resumen de este artículo, destacando {2}. **Evalúa tu confianza en {3}.**",
+    "prompt_example": "Eres un analista de medios objetivo. Haz un breve resumen de este artículo, destacando los hechos clave y los posibles sesgos del autor. **Evalúa tu confianza en la identificación de los sesgos.**",
+    "explanation": "Adaptación del rol para el análisis del contenido de la página (ej. artículo de prensa)."
+  },
+  {
+    "category": "Prompts Especializados",
+    "scenario": "Usuario en Página de Producto",
+    "prompt_text": "Eres {1}. Basado en la información sobre este producto: {2}, escribe {3}. **Primero expón los hechos, luego tu opinión.**",
+    "prompt_example": "Eres un experto en redacción de reseñas. Basado en la información sobre este producto: [información de la página], escribe una reseña equilibrada, indicando 2-3 ventajas y 1-2 desventajas potenciales. **Primero expón los hechos, luego tu opinión.**",
+    "explanation": "Adaptación del rol para la generación de contenido relacionado con la página (ej. reseña de producto)."
+  },
+  {
+    "category": "Templates de Prompt",
+    "template_name": "Template General con Rol y Tarea",
+    "prompt_template": "Actúa como {1}. Mi tarea: {2}. Requisitos clave: {3}. Por favor {4}.",
+    "prompt_example": "Actúa como un marketero experimentado. Mi tarea: crear una estrategia para promover un nuevo producto. Requisitos clave: presupuesto limitado, público objetivo - jóvenes profesionales. Por favor, sugiere pasos específicos y canales de promoción.",
+    "explanation": "Template universal para la creación rápida de prompts estructurados por el usuario."
+  },
+  {
+    "category": "Templates de Prompt",
+    "template_name": "Template de Análisis con 'Cadena de Pensamiento'",
+    "prompt_template": "Analiza la siguiente información: {1}. Usando el método de la 'cadena de pensamiento', llega a una conclusión sobre {2}. Evalúa tu confianza en el resultado.",
+    "prompt_example": "Analiza la siguiente información: datos de ventas del último trimestre. Usando el método de la 'cadena de pensamiento', llega a una conclusión sobre las razones del declive en las ventas. Evalúa tu confianza en el resultado.",
+    "explanation": "Template incluyendo el método de la 'cadena de pensamiento' y la evaluación de la confianza."
+  }
+]

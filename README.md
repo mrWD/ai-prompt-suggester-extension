@@ -5,7 +5,7 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 ## Features
 
 - 💡 Smart prompt suggestions for various AI chat platforms
-- 🌍 Multi-language support (English, German, Russian)
+- 🌍 Multi-language support (English, German, Russian, Italian, French, Spanish, Chinese)
 - 🎯 Easy prompt customization with dynamic inputs
 - 🔄 Real-time prompt preview
 - 🎨 Clean and intuitive interface
@@ -58,6 +58,9 @@ A Chrome extension that suggests and customizes prompts for various AI chat plat
 
 ## Recent Updates
 
+- Added support for new languages (Italian, French, Spanish, Chinese)
+- Improved language selection UI in both popup and modal interfaces
+- Enhanced language switching with instant prompt updates
 - Improved state management with PopupState class
 - Enhanced error handling and recovery mechanisms
 - Optimized prompt loading and caching

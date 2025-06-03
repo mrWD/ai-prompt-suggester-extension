@@ -1277,19 +1277,41 @@ class Modal {
 
             // Add keyboard navigation
             input.addEventListener('keydown', (e) => {
+              const currentIndex = inputs.indexOf(input);
+
               if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                const currentIndex = inputs.indexOf(input);
                 if (currentIndex > 0) {
                   inputs[currentIndex - 1].focus();
                 }
               } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                const currentIndex = inputs.indexOf(input);
                 if (currentIndex < inputs.length - 1) {
                   inputs[currentIndex + 1].focus();
                 } else {
                   applyButton.focus();
+                }
+              } else if (e.key === 'ArrowLeft') {
+                // Move to previous input if cursor is at the beginning
+                if (input.selectionStart === 0 && currentIndex > 0) {
+                  e.preventDefault();
+                  const prevInput = inputs[currentIndex - 1];
+                  prevInput.focus();
+                  // Move cursor to end of previous input
+                  setTimeout(() => {
+                    prevInput.setSelectionRange(prevInput.value.length, prevInput.value.length);
+                  }, 0);
+                }
+              } else if (e.key === 'ArrowRight') {
+                // Move to next input if cursor is at the end
+                if (input.selectionStart === input.value.length && currentIndex < inputs.length - 1) {
+                  e.preventDefault();
+                  const nextInput = inputs[currentIndex + 1];
+                  nextInput.focus();
+                  // Move cursor to beginning of next input
+                  setTimeout(() => {
+                    nextInput.setSelectionRange(0, 0);
+                  }, 0);
                 }
               } else if (e.key === 'Enter') {
                 e.preventDefault();

@@ -193,30 +193,6 @@ body {
   margin: 0;
 }
 
-/* Theme toggle block */
-.theme-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  color: var(--text-color);
-  padding: 4px;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.theme-toggle:hover {
-  background-color: var(--hover-bg);
-}
-
 /* Support section block */
 .support {
   background: var(--support-bg);

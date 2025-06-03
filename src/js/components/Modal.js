@@ -25,7 +25,7 @@ class Modal {
               <span class="support__link-text">Support on Ko-fi</span>
             </a>
             <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" class="support__link">
-              <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" class="support__link-icon">
+              <img src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_1280.png" alt="PayPal" class="support__link-icon">
               <span class="support__link-text">Donate with PayPal</span>
             </a>
           </div>
@@ -358,6 +358,8 @@ class Modal {
 
       .modal__prompt-list {
         max-height: 50vh;
+        margin-inline: -32px;
+        padding-inline: 32px;
         overflow-y: auto;
         padding-right: 8px;
       }
@@ -538,6 +540,35 @@ class Modal {
         opacity: 1;
       }
 
+      .prompt-item__inline-input {
+        display: inline-block;
+        padding: 4px 8px;
+        border: 1px solid var(--button-bg);
+        border-radius: 4px;
+        font-size: inherit;
+        font-family: inherit;
+        background-color: var(--input-bg);
+        color: var(--input-text);
+        transition: var(--transition-smooth);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+        margin: 0 2px;
+        min-width: 120px;
+        max-width: 200px;
+      }
+
+      .prompt-item__inline-input:focus {
+        outline: none;
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+        background-color: var(--bg-color);
+      }
+
+      .prompt-item__inline-input::placeholder {
+        color: var(--placeholder-color);
+        opacity: 0.7;
+        font-size: 0.9em;
+      }
+
       .prompt-item__apply {
         display: none;
         width: 100%;
@@ -685,50 +716,81 @@ class Modal {
 
       const textElement = document.createElement('div');
       textElement.className = 'prompt-item__text';
-      textElement.textContent = prompt.prompt_text || prompt.prompt_template;
 
-      // Create input fields container
+      // Get the prompt text
+      const promptText = prompt.prompt_text || prompt.prompt_template;
+
+      // Find all placeholders
+      const placeholderMatches = promptText.match(/\{(\d+)\}/g) || [];
+      const placeholderCount = placeholderMatches.length;
+
+      // Create input fields container (hidden by default, will show inline inputs instead)
       const inputContainer = document.createElement('div');
       inputContainer.className = 'prompt-item__inputs';
+      inputContainer.style.display = 'none'; // Hide the bottom inputs
 
-      // Get the number of placeholders
-      const promptText = prompt.prompt_text || prompt.prompt_template;
-      const placeholderCount = (promptText.match(/\{(\d+)\}/g) || []).length;
-
-      // Create input fields
+      // Store input references for the apply button
       const inputs = [];
-      for (let i = 1; i <= placeholderCount; i++) {
-        const inputWrapper = document.createElement('div');
-        inputWrapper.className = 'prompt-item__input-wrapper';
 
-        const label = document.createElement('label');
-        label.className = 'prompt-item__input-label';
-        label.textContent = `Input ${i}`;
+      // Function to create inline input elements
+      const createInlineInputs = () => {
+        let htmlContent = promptText;
 
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'prompt-item__input';
-        input.placeholder = `Enter value for {${i}}`;
+        // Replace each {n} with an input field
+        for (let i = 1; i <= placeholderCount; i++) {
+          const inputId = `input-${index}-${i}`;
+          const inputHTML = `<input type="text" class="prompt-item__inline-input" id="${inputId}" placeholder="Enter value for {${i}}" data-placeholder-num="${i}">`;
+          htmlContent = htmlContent.replace(`{${i}}`, inputHTML);
+        }
 
-        // Add input event listener for live preview
-        input.addEventListener('input', () => {
-          let previewText = promptText;
-          inputs.forEach((input, index) => {
-            previewText = previewText.replace(`{${index + 1}}`, input.value || `{${index + 1}}`);
-          });
-          textElement.textContent = previewText;
-        });
+        textElement.innerHTML = htmlContent;
 
-        // Prevent click event from bubbling up to promptElement
-        input.addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
+        // Get references to the created input elements and add event listeners
+        inputs.length = 0; // Clear previous inputs
+        for (let i = 1; i <= placeholderCount; i++) {
+          const inputId = `input-${index}-${i}`;
+          const input = document.getElementById(inputId);
+          if (input) {
+            inputs.push(input);
 
-        inputWrapper.appendChild(label);
-        inputWrapper.appendChild(input);
-        inputContainer.appendChild(inputWrapper);
-        inputs.push(input);
-      }
+            // Prevent click event from bubbling up to promptElement
+            input.addEventListener('click', (e) => {
+              e.stopPropagation();
+            });
+
+            // Add keyboard navigation
+            input.addEventListener('keydown', (e) => {
+              if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const currentIndex = inputs.indexOf(input);
+                if (currentIndex > 0) {
+                  inputs[currentIndex - 1].focus();
+                }
+              } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const currentIndex = inputs.indexOf(input);
+                if (currentIndex < inputs.length - 1) {
+                  inputs[currentIndex + 1].focus();
+                } else {
+                  applyButton.focus();
+                }
+              } else if (e.key === 'Enter') {
+                e.preventDefault();
+                applyButton.click();
+              }
+            });
+          }
+        }
+      };
+
+      // Function to show plain text
+      const showPlainText = () => {
+        textElement.textContent = promptText;
+        inputs.length = 0;
+      };
+
+      // Initially show plain text
+      showPlainText();
 
       // Create apply button
       const applyButton = document.createElement('button');
@@ -742,19 +804,25 @@ class Modal {
           item.classList.remove('prompt-item--active');
         });
 
-        // Toggle input fields and apply button
-        const isVisible = inputContainer.classList.contains('prompt-item__inputs--visible');
-
-        // Hide all other inputs
-        document.querySelectorAll('.prompt-item__inputs').forEach(inputs => {
-          inputs.classList.remove('prompt-item__inputs--visible');
-        });
+        // Hide all other apply buttons
         document.querySelectorAll('.prompt-item__apply').forEach(button => {
           button.classList.remove('prompt-item__apply--visible');
         });
 
-        if (!isVisible) {
-          inputContainer.classList.add('prompt-item__inputs--visible');
+        // Hide all other inline inputs by showing plain text
+        document.querySelectorAll('.prompt-item').forEach((item, itemIndex) => {
+          if (itemIndex !== index) {
+            const textEl = item.querySelector('.prompt-item__text');
+            const originalPrompt = prompts[itemIndex].prompt_text || prompts[itemIndex].prompt_template;
+            textEl.textContent = originalPrompt;
+          }
+        });
+
+        const isActive = promptElement.classList.contains('prompt-item--active');
+
+        if (!isActive) {
+          // Show inline inputs and apply button
+          createInlineInputs();
           applyButton.classList.add('prompt-item__apply--visible');
           promptElement.classList.add('prompt-item--active');
 
@@ -765,50 +833,21 @@ class Modal {
             }
           }, 100);
         } else {
-          // Reset input values when hiding
-          inputs.forEach(input => input.value = '');
-          textElement.textContent = promptText;
+          // Hide inline inputs and show plain text
+          showPlainText();
+          promptElement.classList.remove('prompt-item--active');
         }
-      });
-
-      // Add keyboard navigation between inputs
-      inputs.forEach((input, index) => {
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (index > 0) {
-              inputs[index - 1].focus();
-            }
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (index < inputs.length - 1) {
-              inputs[index + 1].focus();
-            } else {
-              applyButton.focus();
-            }
-          }
-        });
       });
 
       // Add apply button click handler
       applyButton.addEventListener('click', (e) => {
         e.stopPropagation();
         let finalPrompt = promptText;
-        inputs.forEach((input, index) => {
-          finalPrompt = finalPrompt.replace(`{${index + 1}}`, input.value);
+        inputs.forEach((input, inputIndex) => {
+          finalPrompt = finalPrompt.replace(`{${inputIndex + 1}}`, input.value);
         });
         window.chatInputUtils.applyPromptToChat(finalPrompt);
         this.close();
-      });
-
-      // Add enter key handler for inputs
-      inputs.forEach(input => {
-        input.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            applyButton.click();
-          }
-        });
       });
 
       promptElement.appendChild(categoryElement);

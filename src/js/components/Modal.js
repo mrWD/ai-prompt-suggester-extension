@@ -16,14 +16,21 @@ class Modal {
         <div id="support-links" class="modal__support">
           <h3 class="support__title">Support the Project</h3>
           <div class="support__links">
+            <a href="https://github.com/mrWD/ai-prompt-suggester-extension" class="support__link" target="_blank">
+              <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" alt="GitHub" class="support__link-icon">
+              <span class="support__link-text">Star on GitHub</span>
+            </a>
+
             <a href="https://buymeacoffee.com/ipupok" target="_blank" class="support__link">
               <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" class="support__link-icon">
               <span class="support__link-text">Buy Me a Coffee</span>
             </a>
+
             <a href="https://ko-fi.com/ipupok" target="_blank" class="support__link">
               <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi" class="support__link-icon">
               <span class="support__link-text">Support on Ko-fi</span>
             </a>
+
             <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" class="support__link">
               <img src="https://cdn.pixabay.com/photo/2018/05/08/21/29/paypal-3384015_1280.png" alt="PayPal" class="support__link-icon">
               <span class="support__link-text">Donate with PayPal</span>
@@ -41,6 +48,13 @@ class Modal {
             <option value="es">Español</option>
             <option value="zh">中文</option>
           </select>
+        </div>
+        <div class="modal__search-container">
+          <div class="modal__search-wrapper">
+            <input type="text" id="modal-search" class="modal__search-input" placeholder="Search prompts...">
+            <div class="modal__search-icon">🔍</div>
+            <button id="modal-search-clear" class="modal__search-clear" style="display: none;">×</button>
+          </div>
         </div>
         <div id="modal-prompt-list" class="modal__prompt-list">
           <div class="modal__loading" id="modal-loading">
@@ -289,6 +303,79 @@ class Modal {
         min-width: 80px;
       }
 
+      /* Search container styles */
+      .modal__search-container {
+        margin-bottom: 24px;
+      }
+
+      .modal__search-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .modal__search-input {
+        width: 100%;
+        padding: 12px 45px 12px 40px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        background-color: var(--input-bg);
+        color: var(--input-text);
+        font-family: inherit;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-light);
+      }
+
+      .modal__search-input:focus {
+        outline: none;
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+      }
+
+      .modal__search-input::placeholder {
+        color: var(--placeholder-color);
+        opacity: 1;
+      }
+
+      .modal__search-icon {
+        position: absolute;
+        left: 12px;
+        font-size: 16px;
+        color: var(--text-color-secondary);
+        pointer-events: none;
+      }
+
+      .modal__search-clear {
+        position: absolute;
+        right: 8px;
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: var(--text-color-secondary);
+        padding: 4px;
+        border-radius: 4px;
+        transition: var(--transition-smooth);
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal__search-clear:hover {
+        background-color: var(--hover-bg);
+        color: var(--text-color);
+      }
+
+      .modal__search-highlight {
+        background-color: rgba(0, 122, 255, 0.2);
+        border-radius: 2px;
+        padding: 1px 2px;
+        font-weight: 600;
+      }
+
       /* Support section styles */
       .support__title {
         font-size: 16px;
@@ -361,7 +448,6 @@ class Modal {
         margin-inline: -32px;
         padding-inline: 32px;
         overflow-y: auto;
-        padding-right: 8px;
       }
 
       .modal__empty-state {
@@ -655,6 +741,37 @@ class Modal {
         this.close();
       }
     });
+
+    // Add search functionality
+    const searchInput = document.getElementById('modal-search');
+    const searchClear = document.getElementById('modal-search-clear');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.trim();
+      this.filterPrompts(searchTerm);
+
+      // Show/hide clear button
+      if (searchTerm.length > 0) {
+        searchClear.style.display = 'flex';
+      } else {
+        searchClear.style.display = 'none';
+      }
+    });
+
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      this.filterPrompts('');
+      searchInput.focus();
+    });
+
+    // Add keyboard shortcut for search (Ctrl/Cmd + F)
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f' && document.getElementById('prompt-suggester-modal').classList.contains('modal--visible')) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
   }
 
   showLoading() {
@@ -689,11 +806,117 @@ class Modal {
     this.showLoading();
     const prompts = await window.promptService.loadPrompts(document.getElementById('modal-language').value);
     this.displayPrompts(prompts);
+
+    // Autofocus the search input
+    setTimeout(() => {
+      const searchInput = document.getElementById('modal-search');
+      if (searchInput) {
+        searchInput.focus();
+      }
+    }, 100);
   }
 
   close() {
     document.getElementById('prompt-suggester-modal').classList.remove('modal--visible');
     document.getElementById('modal-overlay').classList.remove('modal-overlay--visible');
+  }
+
+  filterPrompts(searchTerm) {
+    if (!this.currentPrompts) return;
+
+    const promptItems = document.querySelectorAll('.prompt-item');
+    let visibleCount = 0;
+
+    promptItems.forEach((item, index) => {
+      const prompt = this.currentPrompts[index];
+      if (!prompt) return;
+
+      const searchableText = [
+        prompt.prompt_text || prompt.prompt_template || '',
+        prompt.category || '',
+        prompt.sub_category || '',
+        prompt.scenario || '',
+        prompt.template_name || ''
+      ].join(' ').toLowerCase();
+
+      const matches = searchTerm === '' || searchableText.includes(searchTerm.toLowerCase());
+
+      if (matches) {
+        item.style.display = 'block';
+        visibleCount++;
+
+        // Highlight search matches if there's a search term
+        if (searchTerm.length > 0) {
+          this.highlightMatches(item, prompt, searchTerm);
+        } else {
+          this.removeHighlights(item, prompt);
+        }
+      } else {
+        item.style.display = 'none';
+        // Hide inputs and apply button if item is hidden
+        item.classList.remove('prompt-item--active');
+        const textEl = item.querySelector('.prompt-item__text');
+        const originalPrompt = prompt.prompt_text || prompt.prompt_template;
+        textEl.textContent = originalPrompt;
+        item.querySelector('.prompt-item__apply').classList.remove('prompt-item__apply--visible');
+      }
+    });
+
+    // Show no results message if no prompts match
+    this.showNoResultsMessage(visibleCount === 0 && searchTerm !== '');
+  }
+
+  highlightMatches(item, prompt, searchTerm) {
+    const categoryEl = item.querySelector('.prompt-item__category');
+    const textEl = item.querySelector('.prompt-item__text');
+
+    // Only highlight if the item is not active (no inline inputs)
+    if (!item.classList.contains('prompt-item--active')) {
+      const categoryText = `${prompt.category} > ${prompt.sub_category || prompt.scenario || prompt.template_name}`;
+      const promptText = prompt.prompt_text || prompt.prompt_template;
+
+      categoryEl.innerHTML = this.highlightText(categoryText, searchTerm);
+      textEl.innerHTML = this.highlightText(promptText, searchTerm);
+    }
+  }
+
+  removeHighlights(item, prompt) {
+    const categoryEl = item.querySelector('.prompt-item__category');
+    const textEl = item.querySelector('.prompt-item__text');
+
+    // Only remove highlights if the item is not active (no inline inputs)
+    if (!item.classList.contains('prompt-item--active')) {
+      const categoryText = `${prompt.category} > ${prompt.sub_category || prompt.scenario || prompt.template_name}`;
+      const promptText = prompt.prompt_text || prompt.prompt_template;
+
+      categoryEl.textContent = categoryText;
+      textEl.textContent = promptText;
+    }
+  }
+
+  highlightText(text, searchTerm) {
+    if (!searchTerm) return text;
+
+    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<span class="modal__search-highlight">$1</span>');
+  }
+
+  showNoResultsMessage(show) {
+    let noResultsEl = document.getElementById('no-results-message');
+
+    if (show && !noResultsEl) {
+      noResultsEl = document.createElement('div');
+      noResultsEl.id = 'no-results-message';
+      noResultsEl.className = 'modal__empty-state';
+      noResultsEl.innerHTML = `
+        <div class="modal__empty-state-icon">🔍</div>
+        <div>No prompts found matching your search.</div>
+        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Try different keywords or clear the search.</div>
+      `;
+      document.getElementById('modal-prompt-list').appendChild(noResultsEl);
+    } else if (!show && noResultsEl) {
+      noResultsEl.remove();
+    }
   }
 
   displayPrompts(prompts) {
@@ -703,6 +926,20 @@ class Modal {
       this.showEmptyState();
       return;
     }
+
+    // Store current prompts for filtering
+    this.currentPrompts = prompts;
+
+    // Clear search when new prompts are loaded
+    const searchInput = document.getElementById('modal-search');
+    const searchClear = document.getElementById('modal-search-clear');
+    if (searchInput) {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+    }
+
+    // Remove any existing no results message
+    this.showNoResultsMessage(false);
 
     promptList.innerHTML = '';
 

@@ -6,14 +6,50 @@ A browser extension that suggests and customizes prompts for various AI chat pla
 
 - 💡 Smart prompt suggestions for various AI chat platforms
 - 🌍 Multi-language support (English, German, Russian, Italian, French, Spanish, Chinese)
-- 🎯 Easy prompt customization with dynamic inputs
-- 🔄 Real-time prompt preview
+- 🔍 **Real-time search** with highlighting across prompt text and categories
+- 🎯 **Inline input editing** - placeholders appear directly in prompt text
+- 📋 **Copy functionality** - Copy prompts with Ctrl+C / Cmd+C
+- ⌨️ **Advanced keyboard navigation** - Arrow keys, Enter, and keyboard shortcuts
 - 🎨 Clean and intuitive interface with system theme support
 - 🚀 Seamless integration with chat platforms
-- ⌨️ Keyboard navigation support
-- 🎯 Improved platform-specific selectors
+- 🔄 Real-time prompt preview with live input substitution
 - 🔒 Robust error handling and state management
 - 📦 Modular architecture with service-based design
+
+## New UI Features
+
+### 🔍 Search & Discovery
+- **Instant search** - Filter prompts as you type
+- **Search highlighting** - Matching text is highlighted in blue
+- **Keyboard shortcut** - Press `Ctrl+F` / `Cmd+F` to focus search
+- **Auto-focus** - Search input is automatically focused when modal opens
+
+### 🎯 Inline Input System
+- **Visual integration** - Input fields appear directly where `{1}`, `{2}`, etc. placeholders are located
+- **Real-time preview** - See exactly how your inputs will look in the final prompt
+- **Smart navigation** - Move between inputs using arrow keys
+- **No more bottom forms** - Inputs are embedded right in the prompt text
+
+### ⌨️ Enhanced Keyboard Navigation
+- **Search navigation** - `↑` / `↓` arrows to select prompts from search results
+- **Input navigation** - Navigate between input fields with arrow keys:
+  - `↑` / `↓` - Move to previous/next input
+  - `←` / `→` - Move between inputs when at text beginning/end
+- **Quick actions**:
+  - `Enter` - Apply prompt to chat
+  - `Ctrl+C` / `Cmd+C` - Copy prompt text
+  - `Escape` - Close modal or clear selection
+
+### 📋 Copy Functionality
+- **Smart copying** - Copies current state with filled-in values
+- **Visual feedback** - Success/error notifications slide in from top-right
+- **Context aware** - Copies keyboard-selected or active prompt
+- **Cross-platform** - Works on Windows, Mac, and Linux
+
+### 💡 Contextual Help
+- **Interactive tips** - Keyboard shortcuts shown when relevant
+- **Professional design** - Styled keyboard key indicators
+- **Action guidance** - Clear instructions for copy and apply actions
 
 ## Supported Browsers
 
@@ -61,26 +97,50 @@ A browser extension that suggests and customizes prompts for various AI chat pla
 
 ## Usage
 
+### Basic Usage
 1. Visit any supported AI chat platform
 2. Click the 💡 button in the chat interface
-3. Select your preferred language
-4. Browse and select a prompt
-5. Customize the prompt if needed
-   - Use Tab/Arrow keys to navigate between inputs
-   - Press Enter to apply the prompt
-6. Click "Apply" to insert the prompt into the chat
+3. **Search** for prompts using the search bar (auto-focused)
+4. **Navigate** with `↑` / `↓` arrow keys or click to select
+5. **Customize** prompts with inline inputs that appear in-place
+6. **Apply** with `Enter` key or "Apply to Chat" button
+
+### Advanced Keyboard Shortcuts
+- `Ctrl+F` / `Cmd+F` - Focus search input
+- `↑` / `↓` - Navigate between search results
+- `Enter` - Select prompt (shows inputs if needed, applies if no inputs)
+- `←` / `→` - Navigate between input fields at text boundaries
+- `Ctrl+C` / `Cmd+C` - Copy current prompt text
+- `Escape` - Close modal or clear current selection
+
+### Power User Tips
+- **Quick copy**: Select a prompt and press `Ctrl+C` to copy without applying
+- **Efficient editing**: Use arrow keys to move between inputs seamlessly
+- **Search workflow**: Type to search → Arrow keys to select → Enter to edit → Fill inputs → Enter to apply
+- **Batch workflow**: Copy multiple prompts for use in other applications
 
 ## Technical Features
 
 - **State Management**: Centralized state management using a dedicated PopupState class
 - **Error Handling**: Robust error handling with graceful fallbacks
 - **Service Architecture**: Modular design with separate services for different functionalities
-- **Dynamic Inputs**: Smart placeholder detection and input field management
+- **Dynamic Inputs**: Smart placeholder detection and inline input field management
 - **Cross-Platform Support**: Unified interface for multiple AI chat platforms
 - **Performance Optimization**: Efficient DOM updates and event handling
+- **Search Engine**: Real-time filtering with text highlighting
+- **Clipboard Integration**: Modern clipboard API with fallback support
 
 ## Recent Updates
 
+### Version 2.0 - Major UI Overhaul
+- **🎯 Inline Input System** - Inputs now appear directly in prompt text
+- **🔍 Real-time Search** - Find prompts instantly with highlighting
+- **⌨️ Advanced Keyboard Navigation** - Full keyboard control for power users
+- **📋 Copy Functionality** - Copy prompts with keyboard shortcuts
+- **💡 Contextual Help** - Smart tips that appear when needed
+- **🎨 Enhanced Design** - Professional card-based UI with improved spacing
+
+### Previous Updates
 - Added system theme support with improved dark mode colors
 - Enhanced text contrast and readability in dark mode
 - Added support for new languages (Italian, French, Spanish, Chinese)
@@ -89,19 +149,16 @@ A browser extension that suggests and customizes prompts for various AI chat pla
 - Improved state management with PopupState class
 - Enhanced error handling and recovery mechanisms
 - Optimized prompt loading and caching
-- Better keyboard navigation support
-- Improved modal performance
-- Fixed async prompt loading
-- Enhanced platform-specific selectors
 - Added support for new AI platforms
 
 ## Support the Project
 
 If you find this extension helpful, consider supporting its development:
 
-- [Buy Me a Coffee](https://buymeacoffee.com/ipupok)
-- [Support on Ko-fi](https://ko-fi.com/ipupok)
-- [Donate with PayPal](https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY)
+- ⭐ [Star on GitHub](https://github.com/mrWD/ai-prompt-suggester-extension)
+- ☕ [Buy Me a Coffee](https://buymeacoffee.com/ipupok)
+- 💖 [Support on Ko-fi](https://ko-fi.com/ipupok)
+- 💰 [Donate with PayPal](https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY)
 
 ## Contributing
 
@@ -111,6 +168,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. When contr
 2. You include appropriate error handling
 3. You update the documentation for any new features
 4. You test your changes across different platforms
+5. Consider accessibility and keyboard navigation
+6. Test the search and copy functionality
 
 ## License
 

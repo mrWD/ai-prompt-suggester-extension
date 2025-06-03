@@ -98,10 +98,35 @@ class Modal {
         --input-text: #333333;
         --placeholder-color: #999999;
         --card-bg: #f6fafe;
+        --card-bg-gradient: linear-gradient(135deg, var(--card-bg) 0%, rgba(246, 250, 254, 0.8) 100%);
+        --card-bg-gradient-hover: linear-gradient(135deg, var(--hover-bg) 0%, rgba(212, 212, 222, 0.9) 100%);
         --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
         --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
         --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.2);
         --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+
+      .dark-theme,
+      [data-theme="dark"] {
+        --bg-color: #1a1a1a;
+        --text-color: #f0f0f0;
+        --text-color-secondary: #b0b0b0;
+        --border-color: #404040;
+        --hover-bg: #2a2a2a;
+        --header-bg: #1a1a1a;
+        --support-bg: #2a2a2a;
+        --button-bg: #0A84FF;
+        --button-hover: #0066CC;
+        --input-bg: #2a2a2a;
+        --input-text: #f0f0f0;
+        --placeholder-color: #808080;
+        --card-bg: #2a2a2a;
+        --card-bg-gradient: linear-gradient(135deg, var(--card-bg) 0%, #2a2a2a 100%);
+        --card-bg-gradient-hover: linear-gradient(135deg, var(--hover-bg) 0%, #2a2a2a 100%);
+        --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+        --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+        --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.5);
       }
 
       @media (prefers-color-scheme: dark) {
@@ -119,6 +144,8 @@ class Modal {
           --input-text: #f0f0f0;
           --placeholder-color: #808080;
           --card-bg: #2a2a2a;
+          --card-bg-gradient: linear-gradient(135deg, var(--card-bg) 0%, #2a2a2a 100%);
+          --card-bg-gradient-hover: linear-gradient(135deg, var(--hover-bg) 0%, #2a2a2a 100%);
           --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
           --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
           --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.5);
@@ -518,13 +545,13 @@ class Modal {
         border-radius: 12px;
         cursor: pointer;
         transition: var(--transition-smooth);
-        background: linear-gradient(135deg, var(--card-bg) 0%, rgba(246, 250, 254, 0.8) 100%);
+        background: var(--card-bg-gradient);
         position: relative;
         box-shadow: var(--shadow-light);
       }
 
       .prompt-item:hover {
-        background: linear-gradient(135deg, var(--hover-bg) 0%, rgba(245, 245, 245, 0.9) 100%);
+        background: var(--card-bg-gradient-hover);
         transform: translateY(-3px);
         box-shadow: var(--shadow-hover);
         border-color: var(--button-bg);

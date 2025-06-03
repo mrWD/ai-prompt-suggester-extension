@@ -3,333 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>AI Prompt Suggester</title>
-  <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #333333;
-      --text-color-secondary: #666666;
-      --border-color: #e0e0e0;
-      --hover-bg: #f5f5f5;
-      --header-bg: #ffffff;
-      --support-bg: #f5f5f5;
-      --button-bg: #007AFF;
-      --button-hover: #0056b3;
-      --input-bg: #ffffff;
-      --input-text: #333333;
-      --placeholder-color: #999999;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #1a1a1a;
-        --text-color: #f0f0f0;
-        --text-color-secondary: #b0b0b0;
-        --border-color: #404040;
-        --hover-bg: #2a2a2a;
-        --header-bg: #1a1a1a;
-        --support-bg: #2a2a2a;
-        --button-bg: #0A84FF;
-        --button-hover: #0066CC;
-        --input-bg: #2a2a2a;
-        --input-text: #f0f0f0;
-        --placeholder-color: #808080;
-      }
-    }
-
-    /* Cross-browser compatibility */
-    * {
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      width: 300px;
-      padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.3s, color 0.3s;
-      margin: 0;
-    }
-
-    /* Ensure consistent button styling across browsers */
-    button {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-color: var(--button-bg);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      margin: 0;
-      padding: 8px;
-      text-align: center;
-      width: 100%;
-    }
-
-    /* Ensure consistent select styling across browsers */
-    select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-color: var(--input-bg);
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-      background-position: right 8px center;
-      background-repeat: no-repeat;
-      background-size: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--input-text);
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      padding: 8px 32px 8px 8px;
-      width: 100%;
-    }
-
-    /* Ensure consistent input styling across browsers */
-    input {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-color: var(--input-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      color: var(--input-text);
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      padding: 8px;
-      width: 100%;
-    }
-
-    input::placeholder {
-      color: var(--placeholder-color);
-      opacity: 1;
-    }
-
-    /* Ensure consistent scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-color);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-color);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-color-secondary);
-    }
-
-    /* Firefox scrollbar styling */
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: var(--border-color) var(--bg-color);
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-      background-color: var(--header-bg);
-    }
-
-    .header h1 {
-      font-size: 18px;
-      margin: 0 0 8px 0;
-      color: var(--text-color);
-    }
-
-    .header p {
-      font-size: 14px;
-      color: var(--text-color);
-      opacity: 0.8;
-      margin: 0;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--text-color);
-      padding: 4px;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-    }
-
-    .theme-toggle:hover {
-      background-color: var(--hover-bg);
-    }
-
-    .support-section {
-      background: var(--support-bg);
-      border-radius: 8px;
-      padding: 16px;
-      margin-top: 16px;
-    }
-
-    .support-section h2 {
-      font-size: 16px;
-      margin: 0 0 12px 0;
-      color: var(--text-color);
-    }
-
-    .support-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .support-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-color);
-      padding: 8px 12px;
-      border-radius: 6px;
-      background: var(--bg-color);
-      transition: background-color 0.2s;
-    }
-
-    .support-link:hover {
-      background: var(--hover-bg);
-    }
-
-    .support-link img {
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-    }
-
-    .support-link span {
-      font-size: 14px;
-    }
-
-    .language-selector {
-      margin-bottom: 16px;
-    }
-
-    .prompt-list {
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .prompt-item {
-      padding: 8px;
-      margin: 4px 0;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: var(--bg-color);
-      transition: background-color 0.2s;
-    }
-
-    .prompt-item:hover {
-      background-color: var(--hover-bg);
-    }
-
-    .prompt-category {
-      font-size: 12px;
-      color: var(--text-color-secondary);
-      margin-bottom: 4px;
-    }
-
-    .prompt-text {
-      font-size: 14px;
-      color: var(--text-color);
-    }
-
-    .custom-inputs {
-      margin-top: 16px;
-      display: none;
-    }
-
-    .custom-inputs input {
-      width: 100%;
-      margin: 4px 0;
-      padding: 8px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      background-color: var(--input-bg);
-      color: var(--input-text);
-    }
-
-    .custom-inputs input::placeholder {
-      color: var(--placeholder-color);
-    }
-
-    select option {
-      background-color: var(--input-bg);
-      color: var(--input-text);
-    }
-
-    button:hover {
-      background-color: var(--button-hover);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="header">
-    <h1>AI Prompt Suggester</h1>
-    <p>Enhance your AI chat experience</p>
+    <h1 class="header__title">AI Prompt Suggester</h1>
+    <p class="header__description">Get AI-powered prompt suggestions for your conversations</p>
   </div>
 
-  <div class="support-section">
-    <h2>Support the Project</h2>
-    <div class="support-links">
-      <a href="https://buymeacoffee.com/ipupok" target="_blank" class="support-link">
-        <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee">
-        <span>Buy Me a Coffee</span>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+
+  <div class="language-selector">
+    <select class="select" id="languageSelect">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="it">Italiano</option>
+      <option value="pt">Português</option>
+      <option value="ru">Русский</option>
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="ko">한국어</option>
+    </select>
+  </div>
+
+  <div class="prompt-list" id="promptList">
+    <!-- Prompts will be dynamically inserted here -->
+  </div>
+
+  <div class="support">
+    <h2 class="support__title">Support the Project</h2>
+    <div class="support__links">
+      <a href="https://github.com/yourusername/ai-prompt-suggester" class="support__link" target="_blank">
+        <img src="icons/github.png" alt="GitHub" class="support__link-icon">
+        <span class="support__link-text">Star on GitHub</span>
       </a>
-      <a href="https://ko-fi.com/ipupok" target="_blank" class="support-link">
-        <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi">
-        <span>Support on Ko-fi</span>
-      </a>
-      <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" class="support-link">
-        <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal">
-        <span>Donate with PayPal</span>
+      <a href="https://www.buymeacoffee.com/yourusername" class="support__link" target="_blank">
+        <img src="icons/coffee.png" alt="Buy Me a Coffee" class="support__link-icon">
+        <span class="support__link-text">Buy me a coffee</span>
       </a>
     </div>
   </div>
 
-  <div class="language-selector">
-    <select id="language">
-      <option value="en">English</option>
-      <option value="de">Deutsch</option>
-      <option value="ru">Русский</option>
-      <option value="it">Italiano</option>
-      <option value="fr">Français</option>
-      <option value="es">Español</option>
-      <option value="zh">中文</option>
-    </select>
-  </div>
-  <div class="prompt-list" id="promptList"></div>
-  <div class="custom-inputs" id="customInputs">
-    <input type="text" id="input1" placeholder="Input 1">
-    <input type="text" id="input2" placeholder="Input 2">
-    <input type="text" id="input3" placeholder="Input 3">
-    <input type="text" id="input4" placeholder="Input 4">
-    <button id="applyPrompt">Apply Prompt</button>
-  </div>
   <script src="popup.js"></script>
 </body>
 </html>

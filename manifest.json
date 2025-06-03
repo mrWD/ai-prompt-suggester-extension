@@ -62,7 +62,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "prompts/*.json"
+        "prompts/*.json",
+        "styles.css"
       ],
       "matches": [
         "https://chat.openai.com/*",

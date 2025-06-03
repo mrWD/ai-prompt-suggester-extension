@@ -1,115 +1,38 @@
 // Modal component for displaying prompt suggestions
 class Modal {
   constructor() {
-    // Add CSS variables to the webpage
-    this.injectThemeStyles();
+    // Inject CSS styles for the modal
+    this.injectStyles();
 
     this.modalHTML = `
-      <div id="prompt-suggester-modal" style="
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--bg-color);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        z-index: 10000;
-        width: 80%;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow-y: auto;
-        color: var(--text-color);
-      ">
-        <div style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 16px;
-        ">
-          <h2 style="margin: 0; color: var(--text-color);">Prompt Suggestions</h2>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <button id="support-button" style="
-              background: none;
-              border: none;
-              cursor: pointer;
-              font-size: 16px;
-              padding: 4px 8px;
-              color: var(--text-color);
-              display: flex;
-              align-items: center;
-              gap: 4px;
-            ">❤️ Support</button>
-            <button id="close-modal" style="
-              background: none;
-              border: none;
-              font-size: 20px;
-              cursor: pointer;
-              padding: 4px 8px;
-              color: var(--text-color);
-            ">×</button>
+      <div id="prompt-suggester-modal" class="modal">
+        <div class="modal__header">
+          <h2 class="modal__title">Prompt Suggestions</h2>
+          <div class="modal__controls">
+            <button id="support-button" class="modal__support-button">❤️ Support</button>
+            <button id="close-modal" class="modal__close">×</button>
           </div>
         </div>
-        <div id="support-links" style="
-          display: none;
-          background: var(--support-bg);
-          border-radius: 8px;
-          padding: 16px;
-          margin-bottom: 16px;
-        ">
-          <h3 style="margin: 0 0 12px 0; font-size: 16px; color: var(--text-color);">Support the Project</h3>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="https://buymeacoffee.com/ipupok" target="_blank" style="
-              display: flex;
-              align-items: center;
-              text-decoration: none;
-              color: var(--text-color);
-              padding: 8px 12px;
-              border-radius: 6px;
-              background: var(--bg-color);
-              transition: background-color 0.2s;
-            ">
-              <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" style="width: 24px; height: 24px; margin-right: 12px;">
-              <span style="font-size: 14px;">Buy Me a Coffee</span>
+        <div id="support-links" class="modal__support">
+          <h3 class="support__title">Support the Project</h3>
+          <div class="support__links">
+            <a href="https://buymeacoffee.com/ipupok" target="_blank" class="support__link">
+              <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" class="support__link-icon">
+              <span class="support__link-text">Buy Me a Coffee</span>
             </a>
-            <a href="https://ko-fi.com/ipupok" target="_blank" style="
-              display: flex;
-              align-items: center;
-              text-decoration: none;
-              color: var(--text-color);
-              padding: 8px 12px;
-              border-radius: 6px;
-              background: var(--bg-color);
-              transition: background-color 0.2s;
-            ">
-              <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi" style="width: 24px; height: 24px; margin-right: 12px;">
-              <span style="font-size: 14px;">Support on Ko-fi</span>
+            <a href="https://ko-fi.com/ipupok" target="_blank" class="support__link">
+              <img src="https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png" alt="Ko-fi" class="support__link-icon">
+              <span class="support__link-text">Support on Ko-fi</span>
             </a>
-            <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" style="
-              display: flex;
-              align-items: center;
-              text-decoration: none;
-              color: var(--text-color);
-              padding: 8px 12px;
-              border-radius: 6px;
-              background: var(--bg-color);
-              transition: background-color 0.2s;
-            ">
-              <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" style="width: 24px; height: 24px; margin-right: 12px;">
-              <span style="font-size: 14px;">Donate with PayPal</span>
+            <a href="https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY" target="_blank" class="support__link">
+              <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" alt="PayPal" class="support__link-icon">
+              <span class="support__link-text">Donate with PayPal</span>
             </a>
           </div>
         </div>
-        <div class="language-selector" style="margin-bottom: 16px;">
-          <select id="modal-language" style="
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            width: 100%;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-          ">
+        <div class="modal__language-selector">
+          <label class="modal__language-label">Language:</label>
+          <select id="modal-language" class="select">
             <option value="en">English</option>
             <option value="de">Deutsch</option>
             <option value="ru">Русский</option>
@@ -119,33 +42,36 @@ class Modal {
             <option value="zh">中文</option>
           </select>
         </div>
-        <div id="modal-prompt-list" style="
-          max-height: 60vh;
-          overflow-y: auto;
-        "></div>
+        <div id="modal-prompt-list" class="modal__prompt-list">
+          <div class="modal__loading" id="modal-loading">
+            <div class="modal__loading-spinner"></div>
+            <div>Loading prompts...</div>
+          </div>
+        </div>
+        <div class="modal__footer">
+          Made with ❤️ by the community • <a href="#" class="modal__footer-link">Report an issue</a>
+        </div>
       </div>
-      <div id="modal-overlay" style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 9999;
-      "></div>
+      <div id="modal-overlay" class="modal-overlay"></div>
     `;
   }
 
-  injectThemeStyles() {
-    // Create style element for theme variables
+  injectStyles() {
+    // Check if styles are already injected
+    if (document.getElementById('prompt-suggester-modal-styles')) {
+      return;
+    }
+
     const style = document.createElement('style');
+    style.id = 'prompt-suggester-modal-styles';
     style.textContent = `
+      /* CSS Variables */
       :root {
+        --border-radius: 8px;
         --bg-color: #ffffff;
         --text-color: #333333;
         --text-color-secondary: #666666;
-        --border-color: #e0e0e0;
+        --border-color: #DBE0E5;
         --hover-bg: #f5f5f5;
         --header-bg: #ffffff;
         --support-bg: #f5f5f5;
@@ -154,6 +80,11 @@ class Modal {
         --input-bg: #ffffff;
         --input-text: #333333;
         --placeholder-color: #999999;
+        --card-bg: #f6fafe;
+        --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+        --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.2);
+        --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       @media (prefers-color-scheme: dark) {
@@ -170,214 +101,494 @@ class Modal {
           --input-bg: #2a2a2a;
           --input-text: #f0f0f0;
           --placeholder-color: #808080;
+          --card-bg: #2a2a2a;
+          --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+          --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+          --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.5);
         }
       }
 
-      #prompt-suggester-modal {
+      /* Base styles for modal elements */
+      .modal * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Modal block */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         background: var(--bg-color);
+        padding: 32px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-hover);
+        z-index: 10000;
+        width: 90%;
+        max-width: 700px;
+        max-height: 85vh;
+        overflow: hidden;
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        border: 1px solid var(--border-color);
+      }
+
+      .modal::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .modal::-webkit-scrollbar-track {
+        background: var(--bg-color);
+      }
+
+      .modal::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: var(--border-radius);
+      }
+
+      .modal::-webkit-scrollbar-thumb:hover {
+        background: var(--text-color-secondary);
+      }
+
+      .modal--visible {
+        display: block;
+        animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -60%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .modal__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .modal__title {
+        margin: 0;
+        color: var(--text-color);
+        font-size: 1.5em;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .modal__title::before {
+        content: "✨";
+        font-size: 1.2em;
+      }
+
+      .modal__controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .modal__support-button {
+        background: none;
+        border: 2px solid var(--border-color);
+        cursor: pointer;
+        font-size: 14px;
+        padding: 8px 16px;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 20px;
+        transition: var(--transition-smooth);
+        font-weight: 500;
+      }
+
+      .modal__support-button:hover {
+        background-color: var(--button-bg);
+        color: white;
+        border-color: var(--button-bg);
+        transform: translateY(-1px);
+      }
+
+      .modal__support-button--active {
+        background-color: var(--button-bg);
+        color: white;
+        border-color: var(--button-bg);
+      }
+
+      .modal__close {
+        background: var(--hover-bg);
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        color: var(--text-color);
+        border-radius: 8px;
+        transition: var(--transition-smooth);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal__close:hover {
+        background-color: #ff4757;
+        color: white;
+        transform: scale(1.1);
+      }
+
+      .modal__support {
+        display: none;
+        background: linear-gradient(135deg, var(--support-bg) 0%, var(--hover-bg) 100%);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        margin-bottom: 24px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-light);
+      }
+
+      .modal__support--visible {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal__language-selector {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .modal__language-label {
+        font-weight: 600;
+        color: var(--text-color);
+        min-width: 80px;
+      }
+
+      /* Support section styles */
+      .support__title {
+        font-size: 16px;
+        margin: 0 0 12px 0;
         color: var(--text-color);
       }
 
-      #prompt-suggester-modal h2,
-      #prompt-suggester-modal h3 {
+      .support__links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .support__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
         color: var(--text-color);
+        padding: 8px 12px;
+        border-radius: var(--border-radius);
+        background: var(--bg-color);
+        transition: background-color 0.2s;
       }
 
-      #prompt-suggester-modal button {
-        color: var(--text-color);
+      .support__link:hover {
+        background: var(--hover-bg);
       }
 
-      #prompt-suggester-modal input {
+      .support__link-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+      }
+
+      .support__link-text {
+        font-size: 14px;
+      }
+
+      /* Select styles */
+      .select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
         background-color: var(--input-bg);
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007AFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         color: var(--input-text);
-        border-color: var(--border-color);
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        padding: 12px 40px 12px 12px;
+        width: 100%;
+        box-shadow: var(--shadow-light);
+        transition: var(--transition-smooth);
+        flex: 1;
       }
 
-      #prompt-suggester-modal input::placeholder {
-        color: var(--placeholder-color);
+      .select:focus {
+        outline: none;
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
       }
 
-      #prompt-suggester-modal select {
-        background-color: var(--input-bg);
-        color: var(--input-text);
-        border-color: var(--border-color);
+      .modal__prompt-list {
+        max-height: 50vh;
+        overflow-y: auto;
+        padding-right: 8px;
       }
 
-      #prompt-suggester-modal select option {
-        background-color: var(--input-bg);
-        color: var(--input-text);
-      }
-
-      #prompt-suggester-modal .prompt-category {
+      .modal__empty-state {
+        text-align: center;
+        padding: 40px 20px;
         color: var(--text-color-secondary);
       }
 
-      #prompt-suggester-modal .prompt-text {
-        color: var(--text-color);
+      .modal__empty-state-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.5;
       }
 
+      .modal__loading {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-color-secondary);
+      }
+
+      .modal__loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--border-color);
+        border-top: 3px solid var(--button-bg);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 16px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Modal overlay */
       .modal-overlay {
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9999;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
       }
 
-      .modal-content {
-        background-color: var(--bg-color);
-        border-radius: 8px;
+      .modal-overlay--visible {
+        display: block;
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Prompt item styles */
+      .prompt-item {
         padding: 20px;
-        width: 90%;
-        max-width: 500px;
-        max-height: 90vh;
-        overflow-y: auto;
-        position: relative;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        color: var(--text-color);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      }
-
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .modal-title {
-        margin: 0;
-        font-size: 1.2em;
-        font-weight: 600;
-        color: var(--text-color);
-      }
-
-      .modal-close {
-        background: none;
-        border: none;
-        font-size: 1.5em;
+        margin: 12px 0;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
         cursor: pointer;
-        padding: 0;
-        color: var(--text-color);
-        width: auto;
+        transition: var(--transition-smooth);
+        background: linear-gradient(135deg, var(--card-bg) 0%, rgba(246, 250, 254, 0.8) 100%);
+        position: relative;
+        box-shadow: var(--shadow-light);
+      }
+
+      .prompt-item:hover {
+        background: linear-gradient(135deg, var(--hover-bg) 0%, rgba(245, 245, 245, 0.9) 100%);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--button-bg);
+      }
+
+      .prompt-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--button-bg), #00d4ff);
+        border-radius: 12px 12px 0 0;
+        opacity: 0;
+        transition: var(--transition-smooth);
+      }
+
+      .prompt-item:hover::before {
+        opacity: 1;
+      }
+
+      .prompt-item--active {
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+      }
+
+      .prompt-item--active::before {
+        opacity: 1;
+      }
+
+      .prompt-item__category {
+        font-size: 11px;
+        color: var(--button-bg);
+        margin-bottom: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 4px;
       }
 
-      .modal-close:hover {
-        color: var(--text-color-secondary);
+      .prompt-item__category::before {
+        content: "🔖";
+        font-size: 12px;
       }
 
-      .modal-body {
-        margin-bottom: 20px;
+      .prompt-item__text {
+        font-size: 15px;
+        color: var(--text-color);
+        margin-bottom: 12px;
+        line-height: 1.5;
+        font-weight: 500;
       }
 
-      .modal-footer {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        padding-top: 10px;
+      .prompt-item__inputs {
+        display: none;
+        margin-top: 16px;
+        padding-top: 16px;
         border-top: 1px solid var(--border-color);
       }
 
-      .modal-footer button {
-        min-width: 80px;
-        width: auto;
+      .prompt-item__inputs--visible {
+        display: block;
+        animation: slideDown 0.3s ease-out;
       }
 
-      /* Cross-browser scrollbar styling */
-      .modal-content::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+      .prompt-item__input-wrapper {
+        margin-bottom: 12px;
       }
 
-      .modal-content::-webkit-scrollbar-track {
-        background: var(--bg-color);
+      .prompt-item__input-label {
+        display: block;
+        font-size: 12px;
+        color: var(--text-color-secondary);
+        margin-bottom: 6px;
+        font-weight: 600;
       }
 
-      .modal-content::-webkit-scrollbar-thumb {
-        background: var(--border-color);
-        border-radius: 4px;
-      }
-
-      .modal-content::-webkit-scrollbar-thumb:hover {
-        background: var(--text-color-secondary);
-      }
-
-      .modal-content {
-        scrollbar-width: thin;
-        scrollbar-color: var(--border-color) var(--bg-color);
-      }
-
-      /* Ensure consistent form element styling */
-      .modal-content select,
-      .modal-content input {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-color: var(--input-bg);
+      .prompt-item__input {
+        width: 100%;
+        padding: 12px;
         border: 1px solid var(--border-color);
-        border-radius: 4px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        background-color: var(--input-bg);
         color: var(--input-text);
         font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        padding: 8px;
-        width: 100%;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-light);
       }
 
-      .modal-content select {
-        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-        background-position: right 8px center;
-        background-repeat: no-repeat;
-        background-size: 12px;
-        padding-right: 32px;
+      .prompt-item__input:focus {
+        outline: none;
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
       }
 
-      .modal-content input::placeholder {
+      .prompt-item__input::placeholder {
         color: var(--placeholder-color);
         opacity: 1;
       }
 
-      /* Ensure consistent button styling */
-      .modal-content button {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background-color: var(--button-bg);
+      .prompt-item__apply {
+        display: none;
+        width: 100%;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, var(--button-bg) 0%, var(--button-hover) 100%);
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: var(--border-radius);
         cursor: pointer;
+        margin-top: 16px;
         font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: var(--transition-smooth);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .prompt-item__apply--visible {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      .prompt-item__apply:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .prompt-item__apply:active {
+        transform: translateY(0);
+      }
+
+      /* Footer for subtle support */
+      .modal__footer {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border-color);
         text-align: center;
+        font-size: 12px;
+        color: var(--text-color-secondary);
       }
 
-      .modal-content button:hover {
-        background-color: var(--button-hover);
+      .modal__footer-link {
+        color: var(--button-bg);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-smooth);
       }
 
-      .modal-content button.secondary {
-        background-color: transparent;
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-      }
-
-      .modal-content button.secondary:hover {
-        background-color: var(--hover-bg);
+      .modal__footer-link:hover {
+        color: var(--button-hover);
+        text-decoration: underline;
       }
     `;
     document.head.appendChild(style);
@@ -392,6 +603,7 @@ class Modal {
     document.getElementById('close-modal').addEventListener('click', () => this.close());
     document.getElementById('modal-overlay').addEventListener('click', () => this.close());
     document.getElementById('modal-language').addEventListener('change', async (e) => {
+      this.showLoading();
       const prompts = await window.promptService.loadPrompts(e.target.value);
       this.displayPrompts(prompts);
     });
@@ -401,10 +613,37 @@ class Modal {
     const supportLinks = document.getElementById('support-links');
 
     supportButton.addEventListener('click', () => {
-      const isVisible = supportLinks.style.display === 'block';
-      supportLinks.style.display = isVisible ? 'none' : 'block';
-      supportButton.style.color = isVisible ? '#666' : '#007AFF';
+      const isVisible = supportLinks.classList.contains('modal__support--visible');
+      supportLinks.classList.toggle('modal__support--visible');
+      supportButton.classList.toggle('modal__support-button--active');
     });
+
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('prompt-suggester-modal').classList.contains('modal--visible')) {
+        this.close();
+      }
+    });
+  }
+
+  showLoading() {
+    const promptList = document.getElementById('modal-prompt-list');
+    promptList.innerHTML = `
+      <div class="modal__loading" id="modal-loading">
+        <div class="modal__loading-spinner"></div>
+        <div>Loading prompts...</div>
+      </div>
+    `;
+  }
+
+  showEmptyState() {
+    const promptList = document.getElementById('modal-prompt-list');
+    promptList.innerHTML = `
+      <div class="modal__empty-state">
+        <div class="modal__empty-state-icon">📝</div>
+        <div>No prompts found for this language.</div>
+      </div>
+    `;
   }
 
   async show() {
@@ -413,54 +652,44 @@ class Modal {
       this.create();
     }
 
-    document.getElementById('prompt-suggester-modal').style.display = 'block';
-    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('prompt-suggester-modal').classList.add('modal--visible');
+    document.getElementById('modal-overlay').classList.add('modal-overlay--visible');
+
+    this.showLoading();
     const prompts = await window.promptService.loadPrompts(document.getElementById('modal-language').value);
     this.displayPrompts(prompts);
   }
 
   close() {
-    document.getElementById('prompt-suggester-modal').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('prompt-suggester-modal').classList.remove('modal--visible');
+    document.getElementById('modal-overlay').classList.remove('modal-overlay--visible');
   }
 
   displayPrompts(prompts) {
     const promptList = document.getElementById('modal-prompt-list');
+
+    if (!prompts || prompts.length === 0) {
+      this.showEmptyState();
+      return;
+    }
+
     promptList.innerHTML = '';
 
-    prompts.forEach((prompt) => {
+    prompts.forEach((prompt, index) => {
       const promptElement = document.createElement('div');
-      promptElement.style.cssText = `
-        padding: 12px;
-        margin: 8px 0;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-      `;
+      promptElement.className = 'prompt-item';
 
       const categoryElement = document.createElement('div');
-      categoryElement.style.cssText = `
-        font-size: 12px;
-        color: var(--text-color-secondary);
-        margin-bottom: 4px;
-      `;
+      categoryElement.className = 'prompt-item__category';
       categoryElement.textContent = `${prompt.category} > ${prompt.sub_category || prompt.scenario || prompt.template_name}`;
 
       const textElement = document.createElement('div');
-      textElement.style.cssText = `
-        font-size: 14px;
-        color: var(--text-color);
-        margin-bottom: 8px;
-      `;
+      textElement.className = 'prompt-item__text';
       textElement.textContent = prompt.prompt_text || prompt.prompt_template;
 
       // Create input fields container
       const inputContainer = document.createElement('div');
-      inputContainer.style.cssText = `
-        display: none;
-        margin-top: 8px;
-      `;
+      inputContainer.className = 'prompt-item__inputs';
 
       // Get the number of placeholders
       const promptText = prompt.prompt_text || prompt.prompt_template;
@@ -470,28 +699,16 @@ class Modal {
       const inputs = [];
       for (let i = 1; i <= placeholderCount; i++) {
         const inputWrapper = document.createElement('div');
-        inputWrapper.style.cssText = `
-          margin-bottom: 8px;
-        `;
+        inputWrapper.className = 'prompt-item__input-wrapper';
 
         const label = document.createElement('label');
-        label.style.cssText = `
-          display: block;
-          font-size: 12px;
-          color: var(--text-color-secondary);
-          margin-bottom: 4px;
-        `;
+        label.className = 'prompt-item__input-label';
         label.textContent = `Input ${i}`;
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.style.cssText = `
-          width: 100%;
-          padding: 8px;
-          border: 1px solid var(--border-color);
-          border-radius: 4px;
-          font-size: 14px;
-        `;
+        input.className = 'prompt-item__input';
+        input.placeholder = `Enter value for {${i}}`;
 
         // Add input event listener for live preview
         input.addEventListener('input', () => {
@@ -515,33 +732,42 @@ class Modal {
 
       // Create apply button
       const applyButton = document.createElement('button');
-      applyButton.textContent = 'Apply';
-      applyButton.style.cssText = `
-        display: none;
-        width: 100%;
-        padding: 8px;
-        background-color: var(--button-bg);
-        color: var(--text-color);
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 8px;
-      `;
+      applyButton.textContent = 'Apply Prompt';
+      applyButton.className = 'prompt-item__apply';
 
       // Add click handler for the prompt
       promptElement.addEventListener('click', () => {
-        // Toggle input fields and apply button
-        const isVisible = inputContainer.style.display === 'block';
-        inputContainer.style.display = isVisible ? 'none' : 'block';
-        applyButton.style.display = isVisible ? 'none' : 'block';
+        // Remove active class from all items
+        document.querySelectorAll('.prompt-item').forEach(item => {
+          item.classList.remove('prompt-item--active');
+        });
 
-        // Reset input values when hiding
-        if (isVisible) {
+        // Toggle input fields and apply button
+        const isVisible = inputContainer.classList.contains('prompt-item__inputs--visible');
+
+        // Hide all other inputs
+        document.querySelectorAll('.prompt-item__inputs').forEach(inputs => {
+          inputs.classList.remove('prompt-item__inputs--visible');
+        });
+        document.querySelectorAll('.prompt-item__apply').forEach(button => {
+          button.classList.remove('prompt-item__apply--visible');
+        });
+
+        if (!isVisible) {
+          inputContainer.classList.add('prompt-item__inputs--visible');
+          applyButton.classList.add('prompt-item__apply--visible');
+          promptElement.classList.add('prompt-item--active');
+
+          // Focus the first input when showing
+          setTimeout(() => {
+            if (inputs.length > 0) {
+              inputs[0].focus();
+            }
+          }, 100);
+        } else {
+          // Reset input values when hiding
           inputs.forEach(input => input.value = '');
           textElement.textContent = promptText;
-        } else {
-          // Focus the first input when showing
-          setTimeout(() => inputs[0].focus(), 0);
         }
       });
 
@@ -565,7 +791,8 @@ class Modal {
       });
 
       // Add apply button click handler
-      applyButton.addEventListener('click', () => {
+      applyButton.addEventListener('click', (e) => {
+        e.stopPropagation();
         let finalPrompt = promptText;
         inputs.forEach((input, index) => {
           finalPrompt = finalPrompt.replace(`{${index + 1}}`, input.value);

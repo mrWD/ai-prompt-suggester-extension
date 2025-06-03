@@ -66,7 +66,7 @@ class Modal {
           </div>
         </div>
         <div class="modal__footer">
-          Made with ❤️ by the community • <a href="#" class="modal__footer-link">Report an issue</a>
+          Made with ❤️ by the community • <a href="https://github.com/mrWD/ai-prompt-suggester-extension/issues" class="modal__footer-link">Report an issue</a>
         </div>
       </div>
       <div id="modal-overlay" class="modal-overlay"></div>

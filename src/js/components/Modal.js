@@ -4,6 +4,9 @@ class Modal {
     // Inject CSS styles for the modal
     this.injectStyles();
 
+    // Initialize keyboard navigation
+    this.selectedPromptIndex = -1;
+
     this.modalHTML = `
       <div id="prompt-suggester-modal" class="modal">
         <div class="modal__header">
@@ -553,6 +556,13 @@ class Modal {
         opacity: 1;
       }
 
+      .prompt-item--keyboard-selected {
+        border-color: var(--button-bg);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.3);
+        transform: translateY(-1px);
+        background: linear-gradient(135deg, rgba(0, 122, 255, 0.05) 0%, rgba(0, 122, 255, 0.1) 100%);
+      }
+
       .prompt-item__category {
         font-size: 11px;
         color: var(--button-bg);
@@ -756,6 +766,32 @@ class Modal {
       } else {
         searchClear.style.display = 'none';
       }
+
+      // Reset keyboard selection when search changes
+      this.selectedPromptIndex = -1;
+      this.clearKeyboardSelection();
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      const visiblePrompts = this.getVisiblePromptElements();
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        this.selectedPromptIndex = Math.min(this.selectedPromptIndex + 1, visiblePrompts.length - 1);
+        this.updateKeyboardSelection(visiblePrompts);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        this.selectedPromptIndex = Math.max(this.selectedPromptIndex - 1, -1);
+        this.updateKeyboardSelection(visiblePrompts);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (this.selectedPromptIndex >= 0 && this.selectedPromptIndex < visiblePrompts.length) {
+          this.selectPromptByKeyboard(visiblePrompts[this.selectedPromptIndex]);
+        }
+      } else if (e.key === 'Escape') {
+        this.selectedPromptIndex = -1;
+        this.clearKeyboardSelection();
+      }
     });
 
     searchClear.addEventListener('click', () => {
@@ -819,10 +855,18 @@ class Modal {
   close() {
     document.getElementById('prompt-suggester-modal').classList.remove('modal--visible');
     document.getElementById('modal-overlay').classList.remove('modal-overlay--visible');
+
+    // Clear keyboard selection when closing
+    this.selectedPromptIndex = -1;
+    this.clearKeyboardSelection();
   }
 
   filterPrompts(searchTerm) {
     if (!this.currentPrompts) return;
+
+    // Clear keyboard selection when filtering
+    this.selectedPromptIndex = -1;
+    this.clearKeyboardSelection();
 
     const promptItems = document.querySelectorAll('.prompt-item');
     let visibleCount = 0;
@@ -899,6 +943,64 @@ class Modal {
 
     const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     return text.replace(regex, '<span class="modal__search-highlight">$1</span>');
+  }
+
+  getVisiblePromptElements() {
+    return Array.from(document.querySelectorAll('.prompt-item')).filter(item =>
+      item.style.display !== 'none'
+    );
+  }
+
+  updateKeyboardSelection(visiblePrompts) {
+    // Clear all keyboard selections
+    this.clearKeyboardSelection();
+
+    // Apply selection to current item
+    if (this.selectedPromptIndex >= 0 && this.selectedPromptIndex < visiblePrompts.length) {
+      const selectedItem = visiblePrompts[this.selectedPromptIndex];
+      selectedItem.classList.add('prompt-item--keyboard-selected');
+
+      // Scroll into view if needed
+      selectedItem.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest'
+      });
+    }
+  }
+
+  clearKeyboardSelection() {
+    document.querySelectorAll('.prompt-item--keyboard-selected').forEach(item => {
+      item.classList.remove('prompt-item--keyboard-selected');
+    });
+  }
+
+  selectPromptByKeyboard(promptElement) {
+    // Find the prompt data
+    const visiblePrompts = this.getVisiblePromptElements();
+    const promptIndex = visiblePrompts.indexOf(promptElement);
+    const prompt = this.currentPrompts.find((p, index) => {
+      const allItems = document.querySelectorAll('.prompt-item');
+      return Array.from(allItems).indexOf(promptElement) === index;
+    });
+
+    if (!prompt) return;
+
+    // Clear keyboard selection
+    this.clearKeyboardSelection();
+
+    // Get the prompt text and check for placeholders
+    const promptText = prompt.prompt_text || prompt.prompt_template;
+    const placeholderCount = (promptText.match(/\{(\d+)\}/g) || []).length;
+
+    if (placeholderCount === 0) {
+      // No placeholders, apply immediately
+      window.chatInputUtils.applyPromptToChat(promptText);
+      this.close();
+    } else {
+      // Has placeholders, simulate click to show inputs
+      promptElement.click();
+    }
   }
 
   showNoResultsMessage(show) {

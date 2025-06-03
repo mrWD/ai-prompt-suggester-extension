@@ -696,6 +696,57 @@ class Modal {
         transform: translateY(0);
       }
 
+      .prompt-item__apply-container {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        gap: 12px;
+      }
+
+      .prompt-item__apply-container--visible {
+        display: flex;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      .prompt-item__copy-tip {
+        font-size: 12px;
+        color: var(--text-color-secondary);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0.8;
+      }
+
+      .copy-tip__shortcuts {
+        display: flex;
+        background-color: var(--hover-bg);
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-light);
+      }
+
+      .copy-tip__shortcut {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--text-color-secondary);
+      }
+
+      .prompt-item__copy-tip kbd {
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 9px;
+        font-family: monospace;
+        color: var(--text-color);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        margin: 0 1px;
+      }
+
       /* Footer for subtle support */
       .modal__footer {
         margin-top: 24px;
@@ -716,6 +767,32 @@ class Modal {
       .modal__footer-link:hover {
         color: var(--button-hover);
         text-decoration: underline;
+      }
+
+      .modal__copy-feedback {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--button-bg);
+        color: white;
+        padding: 8px 16px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: var(--shadow-medium);
+        z-index: 10001;
+        animation: copyFeedbackSlide 0.3s ease-out;
+      }
+
+      @keyframes copyFeedbackSlide {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
     `;
     document.head.appendChild(style);
@@ -806,6 +883,18 @@ class Modal {
       if ((e.ctrlKey || e.metaKey) && e.key === 'f' && document.getElementById('prompt-suggester-modal').classList.contains('modal--visible')) {
         e.preventDefault();
         searchInput.focus();
+      }
+    });
+
+    // Add copy functionality (Ctrl/Cmd + C)
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c' && document.getElementById('prompt-suggester-modal').classList.contains('modal--visible')) {
+        // Only prevent default if we actually copy something
+        const textToCopy = this.getTextToCopy();
+        if (textToCopy) {
+          e.preventDefault();
+          this.copyToClipboard(textToCopy);
+        }
       }
     });
   }
@@ -903,6 +992,10 @@ class Modal {
         const originalPrompt = prompt.prompt_text || prompt.prompt_template;
         textEl.textContent = originalPrompt;
         item.querySelector('.prompt-item__apply').classList.remove('prompt-item__apply--visible');
+        const applyContainer = item.querySelector('.prompt-item__apply-container');
+        if (applyContainer) {
+          applyContainer.classList.remove('prompt-item__apply-container--visible');
+        }
       }
     });
 
@@ -1001,6 +1094,91 @@ class Modal {
       // Has placeholders, simulate click to show inputs
       promptElement.click();
     }
+  }
+
+  getTextToCopy() {
+    // Check if there's an active prompt with inputs
+    const activePrompt = document.querySelector('.prompt-item--active');
+    if (activePrompt) {
+      const inputs = activePrompt.querySelectorAll('.prompt-item__inline-input');
+      if (inputs.length > 0) {
+        // Get the prompt index to find the original prompt data
+        const allPromptItems = document.querySelectorAll('.prompt-item');
+        const promptIndex = Array.from(allPromptItems).indexOf(activePrompt);
+        const prompt = this.currentPrompts[promptIndex];
+
+        if (prompt) {
+          let finalText = prompt.prompt_text || prompt.prompt_template;
+          inputs.forEach((input, index) => {
+            finalText = finalText.replace(`{${index + 1}}`, input.value || `{${index + 1}}`);
+          });
+          return finalText;
+        }
+      }
+    }
+
+    // Check if there's a keyboard-selected prompt
+    const keyboardSelected = document.querySelector('.prompt-item--keyboard-selected');
+    if (keyboardSelected) {
+      const allPromptItems = document.querySelectorAll('.prompt-item');
+      const promptIndex = Array.from(allPromptItems).indexOf(keyboardSelected);
+      const prompt = this.currentPrompts[promptIndex];
+
+      if (prompt) {
+        return prompt.prompt_text || prompt.prompt_template;
+      }
+    }
+
+    return null;
+  }
+
+  async copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      this.showCopyFeedback('✅ Copied to clipboard!');
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+        this.showCopyFeedback('✅ Copied to clipboard!');
+      } catch (fallbackErr) {
+        this.showCopyFeedback('❌ Failed to copy');
+      }
+
+      document.body.removeChild(textArea);
+    }
+  }
+
+  showCopyFeedback(message) {
+    // Remove any existing feedback
+    const existingFeedback = document.getElementById('copy-feedback');
+    if (existingFeedback) {
+      existingFeedback.remove();
+    }
+
+    // Create feedback element
+    const feedback = document.createElement('div');
+    feedback.id = 'copy-feedback';
+    feedback.className = 'modal__copy-feedback';
+    feedback.textContent = message;
+
+    // Add to modal
+    const modal = document.getElementById('prompt-suggester-modal');
+    modal.appendChild(feedback);
+
+    // Remove after 2 seconds
+    setTimeout(() => {
+      if (feedback && feedback.parentNode) {
+        feedback.remove();
+      }
+    }, 2000);
   }
 
   showNoResultsMessage(show) {
@@ -1133,8 +1311,31 @@ class Modal {
 
       // Create apply button
       const applyButton = document.createElement('button');
-      applyButton.textContent = 'Apply Prompt';
+      applyButton.textContent = 'Apply to Chat';
       applyButton.className = 'prompt-item__apply';
+
+      // Create copy tip
+      const copyTip = document.createElement('div');
+      copyTip.className = 'prompt-item__copy-tip';
+      copyTip.innerHTML = `
+        <div class="copy-tip__shortcuts">
+          <div class="copy-tip__shortcut">
+            <kbd>Ctrl+C</kbd> / <kbd>Cmd+C</kbd> to copy
+          </div>
+        </div>
+
+        <div class="copy-tip__shortcuts">
+          <div class="copy-tip__shortcut">
+            <kbd>Enter</kbd> to apply
+          </div>
+        </div>
+      `;
+
+      // Create container for tip and button
+      const applyContainer = document.createElement('div');
+      applyContainer.className = 'prompt-item__apply-container';
+      applyContainer.appendChild(copyTip);
+      applyContainer.appendChild(applyButton);
 
       // Add click handler for the prompt
       promptElement.addEventListener('click', () => {
@@ -1146,6 +1347,11 @@ class Modal {
         // Hide all other apply buttons
         document.querySelectorAll('.prompt-item__apply').forEach(button => {
           button.classList.remove('prompt-item__apply--visible');
+        });
+
+        // Hide all other apply containers
+        document.querySelectorAll('.prompt-item__apply-container').forEach(container => {
+          container.classList.remove('prompt-item__apply-container--visible');
         });
 
         // Hide all other inline inputs by showing plain text
@@ -1162,7 +1368,7 @@ class Modal {
         if (!isActive) {
           // Show inline inputs and apply button
           createInlineInputs();
-          applyButton.classList.add('prompt-item__apply--visible');
+          applyContainer.classList.add('prompt-item__apply-container--visible');
           promptElement.classList.add('prompt-item--active');
 
           // Focus the first input when showing
@@ -1192,7 +1398,7 @@ class Modal {
       promptElement.appendChild(categoryElement);
       promptElement.appendChild(textElement);
       promptElement.appendChild(inputContainer);
-      promptElement.appendChild(applyButton);
+      promptElement.appendChild(applyContainer);
       promptList.appendChild(promptElement);
     });
   }

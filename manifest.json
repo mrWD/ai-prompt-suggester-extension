@@ -4,8 +4,7 @@
   "version": "1.0",
   "description": "Get AI prompt suggestions for various chat platforms",
   "permissions": [
-    "activeTab",
-    "storage"
+    "activeTab"
   ],
   "host_permissions": [
     "https://chat.openai.com/*",

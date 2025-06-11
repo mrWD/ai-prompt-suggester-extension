@@ -6,7 +6,7 @@ class ChatGPTPlatform {
   }
 
   static getTargetElement() {
-    const hintButton = document.querySelector('[data-testid="composer-action-system-hint-button"]');
+    const hintButton = document.querySelector('#system-hint-button');
     return hintButton || null;
   }
 

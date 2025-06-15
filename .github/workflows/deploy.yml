@@ -1,0 +1,127 @@
+name: Deploy Extension
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        npm install -g web-ext
+        # Add any other dependencies your build process needs
+
+    - name: Build extension
+      run: |
+        # Add your build commands here if needed
+        # For example: npm run build
+        echo "Building extension..."
+
+    - name: Update version in manifest
+      run: |
+        # Extract version from git tag (removes 'v' prefix)
+        VERSION=${GITHUB_REF#refs/tags/v}
+        echo "Updating to version: $VERSION"
+
+        # Update manifest.json version
+        sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" manifest.json
+
+    - name: Create Chrome extension package
+      run: |
+        # Create a clean directory for Chrome package
+        mkdir -p packages/chrome
+
+        # Copy files (exclude Firefox-specific files)
+        cp -r . packages/chrome/
+        cd packages/chrome
+
+        # Remove unnecessary files
+        rm -rf .git .github packages node_modules *.md
+
+        # Create zip for Chrome
+        zip -r ../chrome-extension.zip . -x "*.DS_Store*" "*.git*"
+
+    - name: Create Firefox extension package
+      run: |
+        # Create a clean directory for Firefox package
+        mkdir -p packages/firefox
+
+        # Copy files
+        cp -r . packages/firefox/
+        cd packages/firefox
+
+        # Remove unnecessary files
+        rm -rf .git .github packages node_modules *.md
+
+        # Build with web-ext (creates .xpi file)
+        web-ext build --overwrite-dest
+        mv web-ext-artifacts/*.zip ../firefox-extension.xpi
+
+    - name: Deploy to Chrome Web Store
+      env:
+        CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+        CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+        CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+        CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+      run: |
+        # Install chrome-webstore-upload-cli
+        npm install -g chrome-webstore-upload-cli
+
+        # Upload to Chrome Web Store
+        chrome-webstore-upload upload \
+          --source packages/chrome-extension.zip \
+          --extension-id $CHROME_EXTENSION_ID \
+          --client-id $CHROME_CLIENT_ID \
+          --client-secret $CHROME_CLIENT_SECRET \
+          --refresh-token $CHROME_REFRESH_TOKEN \
+          --auto-publish
+
+    - name: Deploy to Firefox Add-ons
+      env:
+        FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+        FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+        FIREFOX_EXTENSION_ID: ${{ secrets.FIREFOX_EXTENSION_ID }}
+      run: |
+        # Upload to Firefox Add-ons
+        web-ext sign \
+          --source-dir packages/firefox \
+          --api-key $FIREFOX_JWT_ISSUER \
+          --api-secret $FIREFOX_JWT_SECRET \
+          --id $FIREFOX_EXTENSION_ID
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          packages/chrome-extension.zip
+          packages/firefox-extension.xpi
+        body: |
+          ## Changes in this version
+
+          Auto-deployed from tag ${{ github.ref_name }}
+
+          ### Installation
+          - **Chrome**: Download `chrome-extension.zip` and load unpacked in Chrome
+          - **Firefox**: Download `firefox-extension.xpi` and install in Firefox
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Notify on success
+      if: success()
+      run: |
+        echo "✅ Extension successfully deployed to both stores!"
+        echo "Chrome Web Store: https://chrome.google.com/webstore/detail/$CHROME_EXTENSION_ID"
+        echo "Firefox Add-ons: https://addons.mozilla.org/addon/$FIREFOX_EXTENSION_ID"
